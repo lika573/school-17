@@ -1,0 +1,87 @@
+[
+  {
+    "id": "1",
+    "name": "ნინო ბერიძე",
+    "subject": "ქართული ენა",
+    "role": "დირექტორი",
+    "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop",
+    "imageAlt": "ნინო ბერიძე — დირექტორი"
+  },
+  {
+    "id": "2",
+    "name": "გიორგი კაფანაძე",
+    "subject": "მათემატიკა",
+    "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop",
+    "imageAlt": "გიორგი კაფანაძე"
+  },
+  {
+    "id": "3",
+    "name": "მარიამ გვასალია",
+    "subject": "ინგლიზური ენა",
+    "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=500&fit=crop",
+    "imageAlt": "მარიამ გვასალია"
+  },
+  {
+    "id": "4",
+    "name": "დავით ნიკოლაძე",
+    "subject": "ფიზიკა",
+    "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop",
+    "imageAlt": "დავით ნიკოლაძე"
+  },
+  {
+    "id": "5",
+    "name": "ელენე ჩხაიძე",
+    "subject": "ისტორია",
+    "image": "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=500&fit=crop",
+    "imageAlt": "ელენე ჩხაიძე"
+  },
+  {
+    "id": "6",
+    "name": "ზურაბ მცჭედლიშვილი",
+    "subject": "ხიმია",
+    "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=500&fit=crop",
+    "imageAlt": "ზურაბ მცჭედლიშვილი"
+  },
+  {
+    "id": "7",
+    "name": "ნათია ჩვარაცხელია",
+    "subject": "ბიოლოგია",
+    "image": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=500&fit=crop",
+    "imageAlt": "ნათია ჩვარაცხელია"
+  },
+  {
+    "id": "8",
+    "name": "ლევან გოგოლაძე",
+    "subject": "სპორტი",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop",
+    "imageAlt": "ლევან გოგოლაძე"
+  },
+  {
+    "id": "9",
+    "name": "თამარ ჯინჩარაძე",
+    "subject": "მუზიკა",
+    "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=500&fit=crop",
+    "imageAlt": "თამარ ჯინჩარაძე"
+  },
+  {
+    "id": "10",
+    "name": "ირაკლი ცულაძე",
+    "subject": "ინფორმატიკა",
+    "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=500&fit=crop",
+    "imageAlt": "ირაკლი ცულაძე"
+  },
+  {
+    "id": "11",
+    "name": "ჩეთი მელაძე",
+    "subject": "გეოგრაფია",
+    "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=500&fit=crop",
+    "imageAlt": "ჩეთი მელაძე"
+  },
+  {
+    "id": "12",
+    "name": "გიგა აბაშიძე",
+    "subject": "მათემატიკა",
+    "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=500&fit=crop",
+    "imageAlt": "გიგა აბაშიძე"
+  }
+]
