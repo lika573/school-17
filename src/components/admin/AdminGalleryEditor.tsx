@@ -126,12 +126,13 @@ export default function AdminGalleryEditor() {
       )}
 
       {/* Always-visible add form */}
-      <section className="border-2 border-accent bg-white p-6 md:p-8">
-        <h2 className="mb-1 text-[20px] font-extrabold text-foreground">
+      <section className="border border-border p-6 md:p-8">
+        <h2 className="mb-1 text-[20px] font-extrabold">
           ახალი ფოტოს დამატება
         </h2>
         <p className="mb-6 text-[14px] text-secondary">
-          ატვირთე ფაილი ან ჩასვი ფოტოს ბმული, შეავსე სათაური და დააჭირე „დამატება“.
+          ატვირთე ფაილი ან ჩასვი ფოტოს ბმული, შეავსე სათაური და დააჭირე „ფოტოს
+          დამატება“.
         </p>
 
         <div className="grid gap-4 md:grid-cols-2">
