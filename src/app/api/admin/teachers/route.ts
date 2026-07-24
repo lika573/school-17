@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { generateId, getTeachersItems, saveTeachersItems } from "@/lib/cms";
+import {
+  generateId,
+  getTeachersItems,
+  upsertTeacherItem,
+} from "@/lib/cms";
 import type { Teacher } from "@/types";
 
 async function guard() {
@@ -15,7 +19,14 @@ async function guard() {
 export async function GET() {
   const denied = await guard();
   if (denied) return denied;
-  return NextResponse.json(await getTeachersItems());
+  try {
+    return NextResponse.json(await getTeachersItems());
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "შეცდომა" },
+      { status: 500 },
+    );
+  }
 }
 
 export async function POST(request: Request) {
@@ -34,7 +45,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const items = await getTeachersItems();
+    const existing = await getTeachersItems();
     const teacher: Teacher = {
       id: generateId(),
       name,
@@ -44,10 +55,12 @@ export async function POST(request: Request) {
       imageAlt: String(body.imageAlt || `${name} — ${subject}`).trim(),
     };
 
-    items.push(teacher);
-    await saveTeachersItems(items);
-    return NextResponse.json(teacher, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: "შეცდომა" }, { status: 500 });
+    const saved = await upsertTeacherItem(teacher, existing.length);
+    return NextResponse.json(saved, { status: 201 });
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "შეცდომა" },
+      { status: 500 },
+    );
   }
 }

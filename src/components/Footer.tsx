@@ -18,8 +18,8 @@ export default function Footer() {
         style={{ background: "var(--gradient-accent)" }}
       />
 
-      <div className="container-padding py-16 md:py-20">
-        <div className="grid gap-12 md:grid-cols-3 md:gap-8">
+      <div className="container-padding py-10 sm:py-16 md:py-20">
+        <div className="grid gap-8 sm:gap-12 md:grid-cols-3 md:gap-8">
           <div>
             <p className="text-[17px] font-extrabold text-white">
               <span className="gradient-text">{site.shortName}</span> — ბათუმის

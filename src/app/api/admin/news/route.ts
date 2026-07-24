@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { generateId, getNewsItems, saveNewsItems, slugify } from "@/lib/cms";
+import {
+  generateId,
+  getNewsItems,
+  slugify,
+  upsertNewsItem,
+} from "@/lib/cms";
 import type { NewsCategory, NewsItem } from "@/types";
 
 async function guard() {
@@ -15,8 +20,14 @@ async function guard() {
 export async function GET() {
   const denied = await guard();
   if (denied) return denied;
-  const items = await getNewsItems();
-  return NextResponse.json(items);
+  try {
+    return NextResponse.json(await getNewsItems());
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "შეცდომა" },
+      { status: 500 },
+    );
+  }
 }
 
 export async function POST(request: Request) {
@@ -51,10 +62,12 @@ export async function POST(request: Request) {
       imageAlt: String(body.imageAlt || title).trim(),
     };
 
-    items.unshift(item);
-    await saveNewsItems(items);
-    return NextResponse.json(item, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: "შეცდომა" }, { status: 500 });
+    const saved = await upsertNewsItem(item);
+    return NextResponse.json(saved, { status: 201 });
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "შეცდომა" },
+      { status: 500 },
+    );
   }
 }

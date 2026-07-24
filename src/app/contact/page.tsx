@@ -14,31 +14,31 @@ export const metadata: Metadata = createMetadata({
 
 export default function ContactPage() {
   return (
-    <div className="container-padding py-16 md:py-24">
+    <div className="container-padding py-10 sm:py-16 md:py-24">
       <ScrollReveal>
         <SectionTitle>კონტაქტი</SectionTitle>
-        <p className="mt-4 max-w-2xl text-[15px] text-white/50">
+        <p className="mt-3 max-w-2xl text-[14px] text-white/50 sm:mt-4 sm:text-[15px]">
           გვესტუმრეთ, დაგვიკავშირდით ტელეფონით ან ელფოსტით.
         </p>
       </ScrollReveal>
 
-      <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="mt-8 grid gap-8 sm:mt-12 sm:gap-12 lg:grid-cols-2 lg:gap-16">
         <ScrollReveal delay={100}>
           <div>
-            <h2 className="mb-6 text-[20px] font-extrabold text-white">
+            <h2 className="mb-4 text-[18px] font-extrabold text-white sm:mb-6 sm:text-[20px]">
               საკონტაქტო ინფორმაცია
             </h2>
-            <address className="space-y-4 text-[15px] not-italic">
-              <div className="glass-card-static p-5">
-                <p className="text-[13px] font-bold uppercase tracking-wider text-white/35">
+            <address className="space-y-3 text-[14px] not-italic sm:space-y-4 sm:text-[15px]">
+              <div className="glass-card-static p-4 sm:p-5">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[13px]">
                   მისამართი
                 </p>
                 <p className="mt-1 font-semibold text-white">
                   {site.contact.address}
                 </p>
               </div>
-              <div className="glass-card-static p-5">
-                <p className="text-[13px] font-bold uppercase tracking-wider text-white/35">
+              <div className="glass-card-static p-4 sm:p-5">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[13px]">
                   ტელეფონი
                 </p>
                 <p className="mt-1">
@@ -50,8 +50,8 @@ export default function ContactPage() {
                   </a>
                 </p>
               </div>
-              <div className="glass-card-static p-5">
-                <p className="text-[13px] font-bold uppercase tracking-wider text-white/35">
+              <div className="glass-card-static p-4 sm:p-5">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[13px]">
                   ელფოსტა
                 </p>
                 <p className="mt-1">
@@ -65,7 +65,7 @@ export default function ContactPage() {
               </div>
             </address>
 
-            <div className="mt-8 aspect-[4/3] w-full overflow-hidden rounded-2xl">
+            <div className="mt-6 aspect-[16/10] w-full overflow-hidden rounded-2xl sm:mt-8 sm:aspect-[4/3]">
               <iframe
                 src={site.contact.mapEmbed}
                 title="ბათუმის N17 საჯარო სკოლის მდებარეობა რუკაზე"
@@ -80,10 +80,10 @@ export default function ContactPage() {
 
         <ScrollReveal delay={200}>
           <div>
-            <h2 className="mb-6 text-[20px] font-extrabold text-white">
+            <h2 className="mb-4 text-[18px] font-extrabold text-white sm:mb-6 sm:text-[20px]">
               მოგვწერეთ
             </h2>
-            <div className="glass-card-static p-6 md:p-8">
+            <div className="glass-card-static p-4 sm:p-6 md:p-8">
               <ContactForm />
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { getNewsItems, saveNewsItems, slugify } from "@/lib/cms";
+import { deleteNewsItem, getNewsItems, slugify, upsertNewsItem } from "@/lib/cms";
 import type { NewsCategory } from "@/types";
 
 interface Props {
@@ -24,16 +24,15 @@ export async function PUT(request: Request, { params }: Props) {
     const { id } = await params;
     const body = await request.json();
     const items = await getNewsItems();
-    const index = items.findIndex((n) => n.id === id);
+    const current = items.find((n) => n.id === id);
 
-    if (index === -1) {
+    if (!current) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    const current = items[index];
     const title = body.title !== undefined ? String(body.title).trim() : current.title;
 
-    items[index] = {
+    const updated = await upsertNewsItem({
       ...current,
       title,
       excerpt: body.excerpt !== undefined ? String(body.excerpt).trim() : current.excerpt,
@@ -46,12 +45,14 @@ export async function PUT(request: Request, { params }: Props) {
         body.slug !== undefined
           ? String(body.slug).trim() || slugify(title)
           : current.slug,
-    };
+    });
 
-    await saveNewsItems(items);
-    return NextResponse.json(items[index]);
-  } catch {
-    return NextResponse.json({ error: "შეცდომა" }, { status: 500 });
+    return NextResponse.json(updated);
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "შეცდომა" },
+      { status: 500 },
+    );
   }
 }
 
@@ -62,15 +63,16 @@ export async function DELETE(_request: Request, { params }: Props) {
   try {
     const { id } = await params;
     const items = await getNewsItems();
-    const filtered = items.filter((n) => n.id !== id);
-
-    if (filtered.length === items.length) {
+    if (!items.some((n) => n.id === id)) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    await saveNewsItems(filtered);
+    await deleteNewsItem(id);
     return NextResponse.json({ success: true });
-  } catch {
-    return NextResponse.json({ error: "შეცდომა" }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "შეცდომა" },
+      { status: 500 },
+    );
   }
 }

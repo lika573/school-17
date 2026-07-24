@@ -17,21 +17,23 @@ interface NewsFilterProps {
 export default function NewsFilter({ active, onChange }: NewsFilterProps) {
   return (
     <div
-      className="mb-10 flex flex-wrap gap-2"
+      className="-mx-4 mb-6 overflow-x-auto px-4 sm:mx-0 sm:mb-10 sm:overflow-visible sm:px-0"
       role="group"
       aria-label="სიახლების ფილტრი"
     >
-      {categories.map((cat) => (
-        <button
-          key={cat}
-          type="button"
-          onClick={() => onChange(cat)}
-          className={`btn-glass ${active === cat ? "active" : ""}`}
-          aria-pressed={active === cat}
-        >
-          {cat}
-        </button>
-      ))}
+      <div className="flex gap-2 pb-2 sm:flex-wrap sm:pb-0">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            type="button"
+            onClick={() => onChange(cat)}
+            className={`btn-glass shrink-0 text-[12px] sm:text-[13px] ${active === cat ? "active" : ""}`}
+            aria-pressed={active === cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

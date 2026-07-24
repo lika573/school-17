@@ -19,16 +19,16 @@ export default async function GalleryPage() {
   const categories = await getGalleryCategories();
 
   return (
-    <div className="container-padding py-16 md:py-24">
+    <div className="container-padding py-10 sm:py-16 md:py-24">
       <ScrollReveal>
         <SectionTitle>გალერეა</SectionTitle>
-        <p className="mt-4 max-w-2xl text-[15px] text-white/50">
+        <p className="mt-3 max-w-2xl text-[14px] text-white/50 sm:mt-4 sm:text-[15px]">
           სკოლის ყოველდღიური ცხოვრება, ღონისძიებები და მოსწავლეების მიღწევები.
         </p>
       </ScrollReveal>
 
       <ScrollReveal delay={150}>
-        <div className="mt-10">
+        <div className="mt-6 sm:mt-10">
           <GalleryGrid items={gallery} categories={categories} />
         </div>
       </ScrollReveal>

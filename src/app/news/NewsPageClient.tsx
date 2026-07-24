@@ -23,26 +23,26 @@ export default function NewsPageClient({ news }: Props) {
   }, [filter, news]);
 
   return (
-    <div className="container-padding py-16 md:py-24">
+    <div className="container-padding py-10 sm:py-16 md:py-24">
       <ScrollReveal>
         <SectionTitle>სიახლები</SectionTitle>
-        <p className="mt-4 max-w-2xl text-[15px] text-white/50">
+        <p className="mt-3 max-w-2xl text-[14px] text-white/50 sm:mt-4 sm:text-[15px]">
           სკოლის უახლესი განცხადებები, ღონისძიებები და მოსწავლეების მიღწევები.
         </p>
       </ScrollReveal>
 
       <ScrollReveal delay={100}>
-        <div className="mt-10">
+        <div className="mt-6 sm:mt-10">
           <NewsFilter active={filter} onChange={setFilter} />
         </div>
       </ScrollReveal>
 
       {filtered.length === 0 ? (
-        <p className="text-[15px] text-white/50">
+        <p className="text-[14px] text-white/50 sm:text-[15px]">
           ამ კატეგორიაში სიახლები არ მოიძებნა.
         </p>
       ) : (
-        <div className="stagger-children grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="stagger-children grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((item, i) => (
             <ScrollReveal key={item.id} delay={i * 80}>
               <NewsCard item={item} />

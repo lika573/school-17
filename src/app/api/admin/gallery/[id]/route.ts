@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { getGalleryItems, saveGalleryItems } from "@/lib/cms";
+import { getGalleryItems, upsertGalleryItem } from "@/lib/cms";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -30,17 +30,22 @@ export async function PUT(request: Request, { params }: Props) {
     }
 
     const current = items[index];
-    items[index] = {
-      ...current,
-      title: body.title !== undefined ? String(body.title).trim() : current.title,
-      category: body.category !== undefined ? String(body.category).trim() : current.category,
-      image: body.image !== undefined ? String(body.image).trim() : current.image,
-      imageAlt: body.imageAlt !== undefined ? String(body.imageAlt).trim() : current.imageAlt,
-    };
+    const updated = await upsertGalleryItem(
+      {
+        ...current,
+        title: body.title !== undefined ? String(body.title).trim() : current.title,
+        category: body.category !== undefined ? String(body.category).trim() : current.category,
+        image: body.image !== undefined ? String(body.image).trim() : current.image,
+        imageAlt: body.imageAlt !== undefined ? String(body.imageAlt).trim() : current.imageAlt,
+      },
+      index,
+    );
 
-    await saveGalleryItems(items);
-    return NextResponse.json(items[index]);
-  } catch {
-    return NextResponse.json({ error: "შეცდომა" }, { status: 500 });
+    return NextResponse.json(updated);
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "შეცდომა" },
+      { status: 500 },
+    );
   }
 }

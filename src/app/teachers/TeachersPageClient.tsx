@@ -20,36 +20,39 @@ export default function TeachersPageClient({ teachers, subjects }: Props) {
   }, [activeSubject, teachers]);
 
   return (
-    <div className="container-padding py-16 md:py-24">
+    <div className="container-padding py-10 sm:py-16 md:py-24">
       <ScrollReveal>
         <SectionTitle>მასწავლებელი</SectionTitle>
-        <p className="mt-4 max-w-2xl text-[15px] text-white/50">
+        <p className="mt-3 max-w-2xl text-[14px] text-white/50 sm:mt-4 sm:text-[15px]">
           N17 სკოლის გამოცდილი და ერთგული მასწავლებელთა გუნდი —{" "}
           {teachers.length} პედაგოგი.
         </p>
       </ScrollReveal>
 
+      {/* Horizontally scrollable filter pills on mobile */}
       <ScrollReveal delay={100}>
         <div
-          className="mt-10 flex flex-wrap gap-2"
+          className="-mx-4 mt-6 overflow-x-auto px-4 sm:mx-0 sm:mt-10 sm:overflow-visible sm:px-0"
           role="group"
           aria-label="საგნის ფილტრი"
         >
-          {subjects.map((subject) => (
-            <button
-              key={subject}
-              type="button"
-              onClick={() => setActiveSubject(subject)}
-              className={`btn-glass ${activeSubject === subject ? "active" : ""}`}
-              aria-pressed={activeSubject === subject}
-            >
-              {subject}
-            </button>
-          ))}
+          <div className="flex gap-2 pb-2 sm:flex-wrap sm:pb-0">
+            {subjects.map((subject) => (
+              <button
+                key={subject}
+                type="button"
+                onClick={() => setActiveSubject(subject)}
+                className={`btn-glass shrink-0 text-[12px] sm:text-[13px] ${activeSubject === subject ? "active" : ""}`}
+                aria-pressed={activeSubject === subject}
+              >
+                {subject}
+              </button>
+            ))}
+          </div>
         </div>
       </ScrollReveal>
 
-      <div className="stagger-children mt-12 grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
+      <div className="stagger-children mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
         {filtered.map((teacher, i) => (
           <ScrollReveal key={teacher.id} delay={i * 60}>
             <TeacherCard teacher={teacher} />

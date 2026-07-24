@@ -1,9 +1,7 @@
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
+import { getAdminClient } from "@/lib/supabase";
 
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
 const MAX_SIZE = 5 * 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 
@@ -41,12 +39,22 @@ export async function POST(request: Request) {
       ? ext
       : "jpg";
     const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${safeExt}`;
+    const path = `cms/${filename}`;
 
-    await mkdir(UPLOAD_DIR, { recursive: true });
+    const supabase = getAdminClient();
     const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(path.join(UPLOAD_DIR, filename), buffer);
 
-    return NextResponse.json({ url: `/uploads/${filename}` });
+    const { error } = await supabase.storage.from("uploads").upload(path, buffer, {
+      contentType: file.type,
+      upsert: false,
+    });
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    const { data } = supabase.storage.from("uploads").getPublicUrl(path);
+    return NextResponse.json({ url: data.publicUrl });
   } catch {
     return NextResponse.json({ error: "ატვირთვა ვერ მოხერხდა" }, { status: 500 });
   }

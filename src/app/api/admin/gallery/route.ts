@@ -14,7 +14,14 @@ async function guard() {
 export async function GET() {
   const denied = await guard();
   if (denied) return denied;
-  return NextResponse.json(await getGalleryItems());
+  try {
+    return NextResponse.json(await getGalleryItems());
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "შეცდომა" },
+      { status: 500 },
+    );
+  }
 }
 
 export async function PUT(request: Request) {
@@ -28,7 +35,10 @@ export async function PUT(request: Request) {
     }
     await saveGalleryItems(body);
     return NextResponse.json(body);
-  } catch {
-    return NextResponse.json({ error: "შეცდომა" }, { status: 500 });
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "შეცდომა" },
+      { status: 500 },
+    );
   }
 }
