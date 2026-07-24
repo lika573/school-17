@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { getGalleryItems, upsertGalleryItem } from "@/lib/cms";
+import {
+  deleteGalleryItem,
+  getGalleryItems,
+  upsertGalleryItem,
+} from "@/lib/cms";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -34,14 +38,41 @@ export async function PUT(request: Request, { params }: Props) {
       {
         ...current,
         title: body.title !== undefined ? String(body.title).trim() : current.title,
-        category: body.category !== undefined ? String(body.category).trim() : current.category,
+        category:
+          body.category !== undefined
+            ? String(body.category).trim()
+            : current.category,
         image: body.image !== undefined ? String(body.image).trim() : current.image,
-        imageAlt: body.imageAlt !== undefined ? String(body.imageAlt).trim() : current.imageAlt,
+        imageAlt:
+          body.imageAlt !== undefined
+            ? String(body.imageAlt).trim()
+            : current.imageAlt,
       },
       index,
     );
 
     return NextResponse.json(updated);
+  } catch (e) {
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "შეცდომა" },
+      { status: 500 },
+    );
+  }
+}
+
+export async function DELETE(_request: Request, { params }: Props) {
+  const denied = await guard();
+  if (denied) return denied;
+
+  try {
+    const { id } = await params;
+    const items = await getGalleryItems();
+    if (!items.some((g) => g.id === id)) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    await deleteGalleryItem(id);
+    return NextResponse.json({ success: true });
   } catch (e) {
     return NextResponse.json(
       { error: e instanceof Error ? e.message : "შეცდომა" },

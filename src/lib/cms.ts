@@ -1,21 +1,11 @@
 import "server-only";
-import { readFile } from "fs/promises";
+import { access, mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { revalidatePath } from "next/cache";
 import type { GalleryItem, NewsItem, Teacher } from "@/types";
 import { getAdminClient } from "@/lib/supabase";
 
-async function readDefaultJson<T>(filename: string): Promise<T> {
-  const raw = await readFile(
-    path.join(process.cwd(), "src", "data", filename),
-    "utf8",
-  );
-  return JSON.parse(raw) as T;
-}
-
-function isMissingTable(error: { code?: string; message?: string } | null): boolean {
-  return error?.code === "PGRST205" || Boolean(error?.message?.includes("Could not find the table"));
-}
+const CMS_DIR = path.join(process.cwd(), "data", "cms");
 
 type NewsRow = {
   id: string;
@@ -36,6 +26,7 @@ type TeacherRow = {
   role: string | null;
   image: string;
   image_alt: string;
+  sort_order?: number;
 };
 
 type GalleryRow = {
@@ -44,7 +35,44 @@ type GalleryRow = {
   category: string;
   image: string;
   image_alt: string;
+  sort_order?: number;
 };
+
+function isMissingTable(error: { code?: string; message?: string } | null): boolean {
+  return (
+    error?.code === "PGRST205" ||
+    Boolean(error?.message?.includes("Could not find the table"))
+  );
+}
+
+async function ensureFile(filename: string): Promise<string> {
+  const cmsPath = path.join(CMS_DIR, filename);
+  try {
+    await access(cmsPath);
+  } catch {
+    await mkdir(CMS_DIR, { recursive: true });
+    const defaults = await readFile(
+      path.join(process.cwd(), "src", "data", filename),
+      "utf8",
+    );
+    await writeFile(cmsPath, defaults, "utf8");
+  }
+  return cmsPath;
+}
+
+async function readFileCms<T>(filename: string): Promise<T> {
+  const filePath = await ensureFile(filename);
+  return JSON.parse(await readFile(filePath, "utf8")) as T;
+}
+
+async function writeFileCms<T>(filename: string, data: T): Promise<void> {
+  await mkdir(CMS_DIR, { recursive: true });
+  await writeFile(
+    path.join(CMS_DIR, filename),
+    JSON.stringify(data, null, 2),
+    "utf8",
+  );
+}
 
 function mapNews(row: NewsRow): NewsItem {
   return {
@@ -81,7 +109,47 @@ function mapGallery(row: GalleryRow): GalleryItem {
   };
 }
 
-function revalidateCmsPaths(kind: "news" | "teachers" | "gallery", news?: NewsItem[]) {
+function teacherToRow(item: Teacher, sortOrder = 0): TeacherRow {
+  return {
+    id: item.id,
+    name: item.name,
+    subject: item.subject,
+    role: item.role || null,
+    image: item.image,
+    image_alt: item.imageAlt,
+    sort_order: sortOrder,
+  };
+}
+
+function newsToRow(item: NewsItem): NewsRow {
+  return {
+    id: item.id,
+    slug: item.slug,
+    title: item.title,
+    excerpt: item.excerpt,
+    content: item.content,
+    category: item.category,
+    date: item.date,
+    image: item.image,
+    image_alt: item.imageAlt,
+  };
+}
+
+function galleryToRow(item: GalleryItem, sortOrder = 0): GalleryRow {
+  return {
+    id: item.id,
+    title: item.title,
+    category: item.category,
+    image: item.image,
+    image_alt: item.imageAlt,
+    sort_order: sortOrder,
+  };
+}
+
+function revalidateCmsPaths(
+  kind: "news" | "teachers" | "gallery",
+  news?: NewsItem[],
+) {
   revalidatePath("/");
   if (kind === "news") {
     revalidatePath("/news");
@@ -104,83 +172,83 @@ export async function getNewsItems(): Promise<NewsItem[]> {
       .order("date", { ascending: false });
 
     if (error) {
-      if (isMissingTable(error)) {
-        return readDefaultJson<NewsItem[]>("news.json");
-      }
+      if (isMissingTable(error)) return readFileCms<NewsItem[]>("news.json");
       throw new Error(`news fetch failed: ${error.message}`);
     }
     return (data as NewsRow[]).map(mapNews);
-  } catch (e) {
-    if (e instanceof Error && e.message.includes("SUPABASE")) {
-      return readDefaultJson<NewsItem[]>("news.json");
-    }
-    throw e;
+  } catch {
+    return readFileCms<NewsItem[]>("news.json");
   }
-}
-
-export async function saveNewsItems(items: NewsItem[]): Promise<void> {
-  const supabase = getAdminClient();
-  const rows = items.map((item) => ({
-    id: item.id,
-    slug: item.slug,
-    title: item.title,
-    excerpt: item.excerpt,
-    content: item.content,
-    category: item.category,
-    date: item.date,
-    image: item.image,
-    image_alt: item.imageAlt,
-    updated_at: new Date().toISOString(),
-  }));
-
-  const { error: upsertError } = await supabase.from("news").upsert(rows);
-  if (upsertError) throw new Error(`news upsert failed: ${upsertError.message}`);
-
-  const ids = items.map((i) => i.id);
-  const { data: existing, error: listError } = await supabase.from("news").select("id");
-  if (listError) throw new Error(`news list failed: ${listError.message}`);
-
-  const toDelete = (existing || [])
-    .map((r: { id: string }) => r.id)
-    .filter((id: string) => !ids.includes(id));
-
-  if (toDelete.length > 0) {
-    const { error: deleteError } = await supabase.from("news").delete().in("id", toDelete);
-    if (deleteError) throw new Error(`news delete failed: ${deleteError.message}`);
-  }
-
-  revalidateCmsPaths("news", items);
 }
 
 export async function upsertNewsItem(item: NewsItem): Promise<NewsItem> {
-  const supabase = getAdminClient();
-  const { data, error } = await supabase
-    .from("news")
-    .upsert({
-      id: item.id,
-      slug: item.slug,
-      title: item.title,
-      excerpt: item.excerpt,
-      content: item.content,
-      category: item.category,
-      date: item.date,
-      image: item.image,
-      image_alt: item.imageAlt,
-      updated_at: new Date().toISOString(),
-    })
-    .select("*")
-    .single();
+  try {
+    const supabase = getAdminClient();
+    const { data, error } = await supabase
+      .from("news")
+      .upsert({
+        ...newsToRow(item),
+        updated_at: new Date().toISOString(),
+      })
+      .select("*")
+      .single();
 
-  if (error) throw new Error(`news upsert failed: ${error.message}`);
-  revalidateCmsPaths("news", [item]);
-  return mapNews(data as NewsRow);
+    if (error) {
+      if (!isMissingTable(error)) {
+        throw new Error(`news upsert failed: ${error.message}`);
+      }
+    } else {
+      revalidateCmsPaths("news", [item]);
+      return mapNews(data as NewsRow);
+    }
+  } catch (e) {
+    if (e instanceof Error && e.message.startsWith("news upsert failed")) {
+      throw e;
+    }
+  }
+
+  const items = await readFileCms<NewsItem[]>("news.json");
+  const index = items.findIndex((n) => n.id === item.id);
+  if (index === -1) items.unshift(item);
+  else items[index] = item;
+  await writeFileCms("news.json", items);
+  revalidateCmsPaths("news", items);
+  return item;
 }
 
 export async function deleteNewsItem(id: string): Promise<void> {
-  const supabase = getAdminClient();
-  const { error } = await supabase.from("news").delete().eq("id", id);
-  if (error) throw new Error(`news delete failed: ${error.message}`);
-  revalidateCmsPaths("news");
+  try {
+    const supabase = getAdminClient();
+    const { error } = await supabase.from("news").delete().eq("id", id);
+    if (error && !isMissingTable(error)) {
+      throw new Error(`news delete failed: ${error.message}`);
+    }
+    if (!error) {
+      revalidateCmsPaths("news");
+      return;
+    }
+  } catch (e) {
+    if (e instanceof Error && e.message.startsWith("news delete failed")) {
+      throw e;
+    }
+  }
+
+  const items = (await readFileCms<NewsItem[]>("news.json")).filter(
+    (n) => n.id !== id,
+  );
+  await writeFileCms("news.json", items);
+  revalidateCmsPaths("news", items);
+}
+
+export async function saveNewsItems(items: NewsItem[]): Promise<void> {
+  for (const item of items) {
+    await upsertNewsItem(item);
+  }
+  const current = await getNewsItems();
+  const keep = new Set(items.map((i) => i.id));
+  for (const item of current) {
+    if (!keep.has(item.id)) await deleteNewsItem(item.id);
+  }
 }
 
 export async function getTeachersItems(): Promise<Teacher[]> {
@@ -193,79 +261,86 @@ export async function getTeachersItems(): Promise<Teacher[]> {
       .order("name", { ascending: true });
 
     if (error) {
-      if (isMissingTable(error)) {
-        return readDefaultJson<Teacher[]>("teachers.json");
-      }
+      if (isMissingTable(error)) return readFileCms<Teacher[]>("teachers.json");
       throw new Error(`teachers fetch failed: ${error.message}`);
     }
     return (data as TeacherRow[]).map(mapTeacher);
-  } catch (e) {
-    if (e instanceof Error && e.message.includes("SUPABASE")) {
-      return readDefaultJson<Teacher[]>("teachers.json");
+  } catch {
+    return readFileCms<Teacher[]>("teachers.json");
+  }
+}
+
+export async function upsertTeacherItem(
+  item: Teacher,
+  sortOrder = 0,
+): Promise<Teacher> {
+  try {
+    const supabase = getAdminClient();
+    const { data, error } = await supabase
+      .from("teachers")
+      .upsert({
+        ...teacherToRow(item, sortOrder),
+        updated_at: new Date().toISOString(),
+      })
+      .select("*")
+      .single();
+
+    if (error) {
+      if (!isMissingTable(error)) {
+        throw new Error(`teacher upsert failed: ${error.message}`);
+      }
+    } else {
+      revalidateCmsPaths("teachers");
+      return mapTeacher(data as TeacherRow);
     }
-    throw e;
-  }
-}
-
-export async function saveTeachersItems(items: Teacher[]): Promise<void> {
-  const supabase = getAdminClient();
-  const rows = items.map((item, index) => ({
-    id: item.id,
-    name: item.name,
-    subject: item.subject,
-    role: item.role || null,
-    image: item.image,
-    image_alt: item.imageAlt,
-    sort_order: index,
-    updated_at: new Date().toISOString(),
-  }));
-
-  const { error: upsertError } = await supabase.from("teachers").upsert(rows);
-  if (upsertError) throw new Error(`teachers upsert failed: ${upsertError.message}`);
-
-  const ids = items.map((i) => i.id);
-  const { data: existing, error: listError } = await supabase.from("teachers").select("id");
-  if (listError) throw new Error(`teachers list failed: ${listError.message}`);
-
-  const toDelete = (existing || [])
-    .map((r: { id: string }) => r.id)
-    .filter((id: string) => !ids.includes(id));
-
-  if (toDelete.length > 0) {
-    const { error: deleteError } = await supabase.from("teachers").delete().in("id", toDelete);
-    if (deleteError) throw new Error(`teachers delete failed: ${deleteError.message}`);
+  } catch (e) {
+    if (e instanceof Error && e.message.startsWith("teacher upsert failed")) {
+      throw e;
+    }
   }
 
+  const items = await readFileCms<Teacher[]>("teachers.json");
+  const index = items.findIndex((t) => t.id === item.id);
+  if (index === -1) items.push(item);
+  else items[index] = item;
+  await writeFileCms("teachers.json", items);
   revalidateCmsPaths("teachers");
-}
-
-export async function upsertTeacherItem(item: Teacher, sortOrder = 0): Promise<Teacher> {
-  const supabase = getAdminClient();
-  const { data, error } = await supabase
-    .from("teachers")
-    .upsert({
-      id: item.id,
-      name: item.name,
-      subject: item.subject,
-      role: item.role || null,
-      image: item.image,
-      image_alt: item.imageAlt,
-      sort_order: sortOrder,
-      updated_at: new Date().toISOString(),
-    })
-    .select("*")
-    .single();
-
-  if (error) throw new Error(`teacher upsert failed: ${error.message}`);
-  revalidateCmsPaths("teachers");
-  return mapTeacher(data as TeacherRow);
+  return item;
 }
 
 export async function deleteTeacherItem(id: string): Promise<void> {
-  const supabase = getAdminClient();
-  const { error } = await supabase.from("teachers").delete().eq("id", id);
-  if (error) throw new Error(`teacher delete failed: ${error.message}`);
+  try {
+    const supabase = getAdminClient();
+    const { error } = await supabase.from("teachers").delete().eq("id", id);
+    if (error && !isMissingTable(error)) {
+      throw new Error(`teacher delete failed: ${error.message}`);
+    }
+    if (!error) {
+      revalidateCmsPaths("teachers");
+      return;
+    }
+  } catch (e) {
+    if (e instanceof Error && e.message.startsWith("teacher delete failed")) {
+      throw e;
+    }
+  }
+
+  const items = (await readFileCms<Teacher[]>("teachers.json")).filter(
+    (t) => t.id !== id,
+  );
+  await writeFileCms("teachers.json", items);
   revalidateCmsPaths("teachers");
+}
+
+export async function saveTeachersItems(items: Teacher[]): Promise<void> {
+  for (let i = 0; i < items.length; i++) {
+    await upsertTeacherItem(items[i], i);
+  }
+  const current = await getTeachersItems();
+  const keep = new Set(items.map((i) => i.id));
+  for (const item of current) {
+    if (!keep.has(item.id)) await deleteTeacherItem(item.id);
+  }
 }
 
 export async function getGalleryItems(): Promise<GalleryItem[]> {
@@ -277,70 +352,81 @@ export async function getGalleryItems(): Promise<GalleryItem[]> {
       .order("sort_order", { ascending: true });
 
     if (error) {
-      if (isMissingTable(error)) {
-        return readDefaultJson<GalleryItem[]>("gallery.json");
-      }
+      if (isMissingTable(error)) return readFileCms<GalleryItem[]>("gallery.json");
       throw new Error(`gallery fetch failed: ${error.message}`);
     }
     return (data as GalleryRow[]).map(mapGallery);
-  } catch (e) {
-    if (e instanceof Error && e.message.includes("SUPABASE")) {
-      return readDefaultJson<GalleryItem[]>("gallery.json");
-    }
-    throw e;
+  } catch {
+    return readFileCms<GalleryItem[]>("gallery.json");
   }
+}
+
+export async function upsertGalleryItem(
+  item: GalleryItem,
+  sortOrder = 0,
+): Promise<GalleryItem> {
+  try {
+    const supabase = getAdminClient();
+    const { data, error } = await supabase
+      .from("gallery")
+      .upsert({
+        ...galleryToRow(item, sortOrder),
+        updated_at: new Date().toISOString(),
+      })
+      .select("*")
+      .single();
+
+    if (error) {
+      if (!isMissingTable(error)) {
+        throw new Error(`gallery upsert failed: ${error.message}`);
+      }
+    } else {
+      revalidateCmsPaths("gallery");
+      return mapGallery(data as GalleryRow);
+    }
+  } catch (e) {
+    if (e instanceof Error && e.message.startsWith("gallery upsert failed")) {
+      throw e;
+    }
+  }
+
+  const items = await readFileCms<GalleryItem[]>("gallery.json");
+  const index = items.findIndex((g) => g.id === item.id);
+  if (index === -1) items.push(item);
+  else items[index] = item;
+  await writeFileCms("gallery.json", items);
+  revalidateCmsPaths("gallery");
+  return item;
 }
 
 export async function saveGalleryItems(items: GalleryItem[]): Promise<void> {
-  const supabase = getAdminClient();
-  const rows = items.map((item, index) => ({
-    id: item.id,
-    title: item.title,
-    category: item.category,
-    image: item.image,
-    image_alt: item.imageAlt,
-    sort_order: index,
-    updated_at: new Date().toISOString(),
-  }));
-
-  const { error: upsertError } = await supabase.from("gallery").upsert(rows);
-  if (upsertError) throw new Error(`gallery upsert failed: ${upsertError.message}`);
-
-  const ids = items.map((i) => i.id);
-  const { data: existing, error: listError } = await supabase.from("gallery").select("id");
-  if (listError) throw new Error(`gallery list failed: ${listError.message}`);
-
-  const toDelete = (existing || [])
-    .map((r: { id: string }) => r.id)
-    .filter((id: string) => !ids.includes(id));
-
-  if (toDelete.length > 0) {
-    const { error: deleteError } = await supabase.from("gallery").delete().in("id", toDelete);
-    if (deleteError) throw new Error(`gallery delete failed: ${deleteError.message}`);
+  for (let i = 0; i < items.length; i++) {
+    await upsertGalleryItem(items[i], i);
   }
-
-  revalidateCmsPaths("gallery");
 }
 
-export async function upsertGalleryItem(item: GalleryItem, sortOrder = 0): Promise<GalleryItem> {
-  const supabase = getAdminClient();
-  const { data, error } = await supabase
-    .from("gallery")
-    .upsert({
-      id: item.id,
-      title: item.title,
-      category: item.category,
-      image: item.image,
-      image_alt: item.imageAlt,
-      sort_order: sortOrder,
-      updated_at: new Date().toISOString(),
-    })
-    .select("*")
-    .single();
+export async function deleteGalleryItem(id: string): Promise<void> {
+  try {
+    const supabase = getAdminClient();
+    const { error } = await supabase.from("gallery").delete().eq("id", id);
+    if (error && !isMissingTable(error)) {
+      throw new Error(`gallery delete failed: ${error.message}`);
+    }
+    if (!error) {
+      revalidateCmsPaths("gallery");
+      return;
+    }
+  } catch (e) {
+    if (e instanceof Error && e.message.startsWith("gallery delete failed")) {
+      throw e;
+    }
+  }
 
-  if (error) throw new Error(`gallery upsert failed: ${error.message}`);
+  const items = (await readFileCms<GalleryItem[]>("gallery.json")).filter(
+    (g) => g.id !== id,
+  );
+  await writeFileCms("gallery.json", items);
   revalidateCmsPaths("gallery");
-  return mapGallery(data as GalleryRow);
 }
 
 export function generateId(): string {

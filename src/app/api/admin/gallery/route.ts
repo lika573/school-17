@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { getGalleryItems, saveGalleryItems } from "@/lib/cms";
+import {
+  generateId,
+  getGalleryItems,
+  upsertGalleryItem,
+} from "@/lib/cms";
+import type { GalleryItem } from "@/types";
 
 async function guard() {
   try {
@@ -24,17 +29,33 @@ export async function GET() {
   }
 }
 
-export async function PUT(request: Request) {
+export async function POST(request: Request) {
   const denied = await guard();
   if (denied) return denied;
 
   try {
     const body = await request.json();
-    if (!Array.isArray(body)) {
-      return NextResponse.json({ error: "Invalid data" }, { status: 400 });
+    const title = String(body.title || "").trim();
+    const image = String(body.image || "").trim();
+
+    if (!title) {
+      return NextResponse.json({ error: "სათაური სავალდებულოა" }, { status: 400 });
     }
-    await saveGalleryItems(body);
-    return NextResponse.json(body);
+    if (!image) {
+      return NextResponse.json({ error: "ფოტო სავალდებულოა" }, { status: 400 });
+    }
+
+    const existing = await getGalleryItems();
+    const item: GalleryItem = {
+      id: generateId(),
+      title,
+      category: String(body.category || "სხვა").trim() || "სხვა",
+      image,
+      imageAlt: String(body.imageAlt || title).trim(),
+    };
+
+    const saved = await upsertGalleryItem(item, existing.length);
+    return NextResponse.json(saved, { status: 201 });
   } catch (e) {
     return NextResponse.json(
       { error: e instanceof Error ? e.message : "შეცდომა" },

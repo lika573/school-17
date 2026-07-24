@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const links = [
-  { href: "/admin/news", label: "სიახლები" },
-  { href: "/admin/teachers", label: "მასწავლებელი" },
+  { href: "/admin/news", label: "სიახლეები" },
+  { href: "/admin/teachers", label: "მასწავლებლები" },
   { href: "/admin/gallery", label: "გალერეა" },
 ];
 
@@ -22,17 +22,19 @@ export default function AdminNav() {
   return (
     <header className="border-b border-border bg-dark text-white">
       <div className="container-padding flex h-14 items-center justify-between gap-4">
-        <div className="flex items-center gap-6">
-          <Link href="/admin/news" className="text-[15px] font-extrabold">
+        <div className="flex min-w-0 flex-1 items-center gap-4 md:gap-6">
+          <Link href="/admin/news" className="shrink-0 text-[15px] font-extrabold">
             <span className="text-accent">N17</span> ადმინი
           </Link>
-          <nav className="hidden gap-4 sm:flex">
+          <nav className="flex flex-wrap items-center gap-3 md:gap-4" aria-label="ადმინ ნავიგაცია">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={`text-[13px] font-semibold ${
-                  pathname === link.href ? "text-accent" : "text-white/70 hover:text-white"
+                  pathname === link.href
+                    ? "text-accent"
+                    : "text-white/70 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -40,8 +42,8 @@ export default function AdminNav() {
             ))}
           </nav>
         </div>
-        <div className="flex items-center gap-3">
-          <Link href="/" className="text-[13px] text-white/60 hover:text-accent">
+        <div className="flex shrink-0 items-center gap-3">
+          <Link href="/" className="hidden text-[13px] text-white/60 hover:text-accent sm:inline">
             საიტი →
           </Link>
           <button

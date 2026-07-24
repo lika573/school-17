@@ -76,14 +76,14 @@ export default function AdminTeachersEditor() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error();
-      const created = await res.json();
-      setItems((prev) => [...prev, created]);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "დამატება ვერ მოხერხდა");
+      setItems((prev) => [...prev, data]);
       setForm(emptyForm);
       setShowForm(false);
       setMessage("დაემატა ✓");
-    } catch {
-      setMessage("დამატება ვერ მოხერხდა");
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : "დამატება ვერ მოხერხდა");
     } finally {
       setSaving(null);
     }

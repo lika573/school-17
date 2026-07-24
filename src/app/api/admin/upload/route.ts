@@ -4,6 +4,25 @@ import { getAdminClient } from "@/lib/supabase";
 
 const MAX_SIZE = 5 * 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+const BUCKET = "uploads";
+
+async function ensureUploadsBucket(
+  supabase: ReturnType<typeof getAdminClient>,
+) {
+  const { data: buckets } = await supabase.storage.listBuckets();
+  const exists = buckets?.some((b) => b.name === BUCKET || b.id === BUCKET);
+  if (exists) return;
+
+  const { error } = await supabase.storage.createBucket(BUCKET, {
+    public: true,
+    fileSizeLimit: MAX_SIZE,
+    allowedMimeTypes: ALLOWED_TYPES,
+  });
+
+  if (error && !error.message.toLowerCase().includes("already")) {
+    throw error;
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -42,9 +61,11 @@ export async function POST(request: Request) {
     const path = `cms/${filename}`;
 
     const supabase = getAdminClient();
+    await ensureUploadsBucket(supabase);
+
     const buffer = Buffer.from(await file.arrayBuffer());
 
-    const { error } = await supabase.storage.from("uploads").upload(path, buffer, {
+    const { error } = await supabase.storage.from(BUCKET).upload(path, buffer, {
       contentType: file.type,
       upsert: false,
     });
@@ -53,9 +74,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const { data } = supabase.storage.from("uploads").getPublicUrl(path);
+    const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
     return NextResponse.json({ url: data.publicUrl });
-  } catch {
-    return NextResponse.json({ error: "ატვირთვა ვერ მოხერხდა" }, { status: 500 });
+  } catch (e) {
+    const message = e instanceof Error ? e.message : "ატვირთვა ვერ მოხერხდა";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
