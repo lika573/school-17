@@ -50,20 +50,20 @@ export default function NewsCard({ item }: NewsCardProps) {
           {/* Category with colored dot */}
           <span className="flex items-center gap-1.5">
             <span className={`category-dot ${getCategoryDotClass(item.category)}`} />
-            <span className="font-semibold text-white/70">{item.category}</span>
+            <span className="font-semibold text-secondary">{item.category}</span>
           </span>
-          <span className="text-white/25">·</span>
-          <span className="text-white/35">{formatDate(item.date)}</span>
+          <span className="text-secondary/50">·</span>
+          <span className="text-secondary">{formatDate(item.date)}</span>
         </div>
-        <h3 className="mb-2 text-[15px] font-bold leading-snug text-white sm:text-[17px]">
+        <h3 className="mb-2 text-[15px] font-bold leading-snug text-foreground sm:text-[17px]">
           <Link
             href={`/news/${item.slug}`}
-            className="transition-colors hover:text-white/80"
+            className="transition-colors hover:text-accent"
           >
             {item.title}
           </Link>
         </h3>
-        <p className="mb-3 flex-1 text-[13px] leading-relaxed text-white/45 sm:mb-4 sm:text-[14px]">
+        <p className="mb-3 flex-1 text-[13px] leading-relaxed text-secondary sm:mb-4 sm:text-[14px]">
           {item.excerpt}
         </p>
         <Link

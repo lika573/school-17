@@ -50,7 +50,7 @@ export default function AdmissionForm() {
         <p className="gradient-text text-[20px] font-extrabold">
           ✓ განაცხადი მიღებულია
         </p>
-        <p className="mt-2 text-[15px] text-white/50">
+        <p className="mt-2 text-[15px] text-secondary">
           თქვენი განაცხადი წარმატებით გაიგზავნა. დაგიკავშირდებით 3 სამუშაო დღის
           განმავლობაში.
         </p>

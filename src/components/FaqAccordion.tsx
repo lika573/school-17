@@ -35,7 +35,7 @@ export default function FaqAccordion({ items }: FaqAccordionProps) {
             <span className="faq-icon">+</span>
           </button>
           <div className="faq-content">
-            <p className="text-[14px] leading-relaxed text-white/50">
+            <p className="text-[14px] leading-relaxed text-secondary">
               {item.answer}
             </p>
           </div>

@@ -24,7 +24,7 @@ export default function ContactPage() {
       <div className="mt-8 grid gap-8 sm:mt-12 sm:gap-12 lg:grid-cols-2 lg:gap-16">
         <ScrollReveal delay={100}>
           <div>
-            <h2 className="mb-4 text-[18px] font-extrabold text-white sm:mb-6 sm:text-[20px]">
+            <h2 className="mb-4 text-[18px] font-extrabold text-foreground sm:mb-6 sm:text-[20px]">
               საკონტაქტო ინფორმაცია
             </h2>
             <div className="space-y-3 sm:space-y-4">
@@ -32,10 +32,10 @@ export default function ContactPage() {
               <div className="glass-card-static flex items-start gap-4 p-4 sm:p-5">
                 <div className="contact-icon" aria-hidden="true">📍</div>
                 <div>
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[12px]">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-secondary sm:text-[12px]">
                     მისამართი
                   </p>
-                  <p className="mt-1 text-[14px] font-semibold text-white sm:text-[15px]">
+                  <p className="mt-1 text-[14px] font-semibold text-foreground sm:text-[15px]">
                     {site.contact.address}
                   </p>
                 </div>
@@ -45,7 +45,7 @@ export default function ContactPage() {
               <div className="glass-card-static flex items-start gap-4 p-4 sm:p-5">
                 <div className="contact-icon" aria-hidden="true">📞</div>
                 <div>
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[12px]">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-secondary sm:text-[12px]">
                     ტელეფონი
                   </p>
                   <p className="mt-1">
@@ -63,7 +63,7 @@ export default function ContactPage() {
               <div className="glass-card-static flex items-start gap-4 p-4 sm:p-5">
                 <div className="contact-icon" aria-hidden="true">✉️</div>
                 <div>
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[12px]">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-secondary sm:text-[12px]">
                     ელფოსტა
                   </p>
                   <p className="mt-1">
@@ -81,10 +81,10 @@ export default function ContactPage() {
               <div className="glass-card-static flex items-start gap-4 p-4 sm:p-5">
                 <div className="contact-icon" aria-hidden="true">🕐</div>
                 <div>
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[12px]">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-secondary sm:text-[12px]">
                     სამუშაო საათები
                   </p>
-                  <p className="mt-1 text-[14px] font-semibold text-white sm:text-[15px]">
+                  <p className="mt-1 text-[14px] font-semibold text-foreground sm:text-[15px]">
                     {site.workingHours}
                   </p>
                 </div>
@@ -119,7 +119,7 @@ export default function ContactPage() {
 
         <ScrollReveal delay={200}>
           <div>
-            <h2 className="mb-4 text-[18px] font-extrabold text-white sm:mb-6 sm:text-[20px]">
+            <h2 className="mb-4 text-[18px] font-extrabold text-foreground sm:mb-6 sm:text-[20px]">
               მოგვწერეთ
             </h2>
             <div className="glass-card-static p-4 sm:p-6 md:p-8">

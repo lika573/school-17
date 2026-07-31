@@ -30,7 +30,9 @@
   --dark: #201e1d;
   --text-secondary: #645c50;
   --glass-bg: rgba(235, 221, 197, 0.85);
+  --glass-bg-strong: rgba(235, 221, 197, 1);
   --glass-border: rgba(32, 30, 29, 0.08);
+  --glass-border-hover: rgba(32, 30, 29, 0.16);
   --gradient-accent: linear-gradient(135deg, #c67139, #b2622d);
 }
 
@@ -585,7 +587,7 @@ body {
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 8px;
-  color: rgba(237, 240, 247, 0.75);
+  color: var(--foreground);
 }
 
 .form-error {

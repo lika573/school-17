@@ -26,15 +26,15 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
           </span>
         </div>
       </div>
-      <h3 className="text-[13px] font-bold text-white sm:text-[15px]">
+      <h3 className="text-[13px] font-bold text-foreground sm:text-[15px]">
         {teacher.name}
       </h3>
       <p className="gradient-text text-[11px] font-semibold sm:text-[13px]">
         {teacher.subject}
       </p>
       {teacher.role && (
-        <p className="mt-0.5 inline-flex items-center gap-1 text-[11px] text-white/40 sm:text-[12px]">
-          <span className="inline-block h-1 w-1 rounded-full bg-white/30" />
+        <p className="mt-0.5 inline-flex items-center gap-1 text-[11px] text-secondary sm:text-[12px]">
+          <span className="inline-block h-1 w-1 rounded-full bg-foreground/30" />
           {teacher.role}
         </p>
       )}

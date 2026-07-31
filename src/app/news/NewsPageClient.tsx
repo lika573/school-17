@@ -38,7 +38,7 @@ export default function NewsPageClient({ news }: Props) {
 
       {filtered.length === 0 ? (
         <div className="glass-card-static mt-8 p-8 text-center">
-          <p className="text-[14px] text-white/50 sm:text-[15px]">
+          <p className="text-[14px] text-secondary sm:text-[15px]">
             ამ კატეგორიაში სიახლები არ მოიძებნა.
           </p>
         </div>

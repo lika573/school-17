@@ -46,7 +46,7 @@ export default function ContactForm() {
         <p className="gradient-text text-[20px] font-extrabold">
           ✓ შეტყობინება გაიგზავნა
         </p>
-        <p className="mt-2 text-[15px] text-white/50">
+        <p className="mt-2 text-[15px] text-secondary">
           მადლობა დაუკავშირდეთ. პასუხს მალე მიიღებთ.
         </p>
         <button

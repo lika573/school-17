@@ -92,7 +92,7 @@ export default async function NewsDetailPage({ params }: Props) {
 
       {/* Share buttons */}
       <div className="mb-8 flex items-center gap-3 sm:mb-10">
-        <span className="text-[13px] font-semibold text-white/40">გაზიარება:</span>
+        <span className="text-[13px] font-semibold text-secondary">გაზიარება:</span>
         <CopyLinkButton />
       </div>
 
@@ -101,7 +101,7 @@ export default async function NewsDetailPage({ params }: Props) {
         {paragraphs.map((paragraph, i) => (
           <p
             key={i}
-            className={`mb-4 text-[15px] leading-relaxed text-white/55 md:text-[17px] ${
+            className={`mb-4 text-[15px] leading-relaxed text-secondary md:text-[17px] ${
               i === 0 ? "drop-cap" : ""
             }`}
           >
@@ -113,8 +113,8 @@ export default async function NewsDetailPage({ params }: Props) {
       {/* Related News */}
       {related.length > 0 && (
         <ScrollReveal>
-          <section className="mt-12 border-t border-white/5 pt-10 sm:mt-16 sm:pt-14">
-            <h2 className="mb-6 text-[18px] font-extrabold text-white sm:text-[20px]">
+          <section className="mt-12 border-t border-border pt-10 sm:mt-16 sm:pt-14">
+            <h2 className="mb-6 text-[18px] font-extrabold text-foreground sm:text-[20px]">
               მსგავსი სიახლეები
             </h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
@@ -138,9 +138,9 @@ export default async function NewsDetailPage({ params }: Props) {
                   <div className="flex-1">
                     <p className="mb-1 flex items-center gap-1.5 text-[11px] sm:text-[12px]">
                       <span className={`category-dot ${getCategoryDotClass(relatedItem.category)}`} />
-                      <span className="text-white/50">{formatDate(relatedItem.date)}</span>
+                      <span className="text-secondary">{formatDate(relatedItem.date)}</span>
                     </p>
-                    <h3 className="text-[14px] font-bold leading-snug text-white transition-colors group-hover:text-white/80 sm:text-[15px]">
+                    <h3 className="text-[14px] font-bold leading-snug text-foreground transition-colors group-hover:text-accent sm:text-[15px]">
                       {relatedItem.title}
                     </h3>
                   </div>
