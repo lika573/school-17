@@ -12,6 +12,7 @@ const navLinks = [
   { href: "/admission", label: "მიღება" },
   { href: "/teachers", label: "მასწავლებლები" },
   { href: "/news", label: "სიახლეები" },
+  { href: "/gallery", label: "გალერეა" },
   { href: "/contact", label: "კონტაქტი" },
 ];
 
