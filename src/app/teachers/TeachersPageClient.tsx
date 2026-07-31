@@ -19,14 +19,18 @@ export default function TeachersPageClient({ teachers, subjects }: Props) {
     return teachers.filter((t) => t.subject === activeSubject);
   }, [activeSubject, teachers]);
 
+  // Count teachers per subject
+  const getSubjectCount = (subject: string) => {
+    if (subject === "ყველა") return teachers.length;
+    return teachers.filter((t) => t.subject === subject).length;
+  };
+
   return (
     <div className="container-padding py-10 sm:py-16 md:py-24">
       <ScrollReveal>
-        <SectionTitle>მასწავლებელი</SectionTitle>
-        <p className="mt-3 max-w-2xl text-[14px] text-white/50 sm:mt-4 sm:text-[15px]">
-          N17 სკოლის გამოცდილი და ერთგული მასწავლებელთა გუნდი —{" "}
-          {teachers.length} პედაგოგი.
-        </p>
+        <SectionTitle subtitle={`N17 სკოლის გამოცდილი და ერთგული მასწავლებელთა გუნდი — ${teachers.length} პედაგოგი.`}>
+          მასწავლებლები
+        </SectionTitle>
       </ScrollReveal>
 
       {/* Horizontally scrollable filter pills on mobile */}
@@ -46,6 +50,9 @@ export default function TeachersPageClient({ teachers, subjects }: Props) {
                 aria-pressed={activeSubject === subject}
               >
                 {subject}
+                <span className="ml-1.5 rounded-full bg-white/10 px-1.5 py-0.5 text-[10px] font-medium">
+                  {getSubjectCount(subject)}
+                </span>
               </button>
             ))}
           </div>

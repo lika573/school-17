@@ -1,112 +1,55 @@
-import Link from "next/link";
+"use client";
+
 import { site } from "@/lib/site";
 
 export default function Footer() {
   return (
-    <footer
-      className="mt-auto"
-      style={{
-        background: "rgba(6, 9, 17, 0.8)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-      }}
-    >
-      {/* Gradient top line */}
-      <div
-        className="h-px w-full"
-        style={{ background: "var(--gradient-accent)" }}
-      />
-
-      <div className="container-padding py-10 sm:py-16 md:py-20">
-        <div className="grid gap-8 sm:gap-12 md:grid-cols-3 md:gap-8">
-          <div>
-            <p className="text-[17px] font-extrabold text-white">
-              <span className="gradient-text">{site.shortName}</span> — ბათუმის
-              საჯარო სკოლა
-            </p>
-            <p className="mt-4 text-[14px] leading-relaxed text-white/45">
-              {site.tagline}
-            </p>
+    <footer className="mx-auto max-w-[1440px] px-5 sm:px-8 md:px-12 pb-14 pt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 text-[#201e1d]">
+      <div>
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-full bg-[#c67139] text-[#fff2eb] flex items-center justify-center font-serif text-[15px]">
+            14
           </div>
-
-          <div>
-            <h2 className="mb-4 text-[13px] font-bold uppercase tracking-wider text-white/30">
-              ნავიგაცია
-            </h2>
-            <ul className="space-y-2 text-[14px]">
-              <li>
-                <Link
-                  href="/news"
-                  className="text-white/60 transition-colors hover:text-white"
-                >
-                  სიახლეები
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/admission"
-                  className="text-white/60 transition-colors hover:text-white"
-                >
-                  მიღება
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/teachers"
-                  className="text-white/60 transition-colors hover:text-white"
-                >
-                  მასწავლებლები
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/gallery"
-                  className="text-white/60 transition-colors hover:text-white"
-                >
-                  გალერეა
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-white/60 transition-colors hover:text-white"
-                >
-                  კონტაქტი
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="mb-4 text-[13px] font-bold uppercase tracking-wider text-white/30">
-              კონტაქტი
-            </h2>
-            <address className="space-y-2 text-[14px] not-italic text-white/60">
-              <p>{site.contact.address}</p>
-              <p>
-                <a
-                  href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
-                  className="transition-colors hover:text-white"
-                >
-                  {site.contact.phone}
-                </a>
-              </p>
-              <p>
-                <a
-                  href={`mailto:${site.contact.email}`}
-                  className="transition-colors hover:text-white"
-                >
-                  {site.contact.email}
-                </a>
-              </p>
-            </address>
-          </div>
+          <span className="text-[14px] font-extrabold">{site.name}</span>
         </div>
+        <p className="mt-4 text-[13px] font-medium leading-relaxed text-[#645c50] max-w-[290px]">
+          დაფუძნებულია 1952 წელს. ავტორიზებული საჯარო სკოლა, აჭარის ავტონომიური რესპუბლიკა.
+        </p>
+      </div>
 
-        <div className="mt-12 border-t border-white/5 pt-8 text-[13px] text-white/30">
-          © {new Date().getFullYear()} {site.name}. ყველა უფლება დაცულია.
+      <div>
+        <div className="text-[12px] font-extrabold tracking-wider text-[#8c491a] uppercase">
+          მისამართი
         </div>
+        <p className="mt-3 text-[14px] font-medium leading-relaxed">
+          ბათუმი 6000<br />
+          ილია ჭავჭავაძის ქ. 14
+        </p>
+      </div>
+
+      <div>
+        <div className="text-[12px] font-extrabold tracking-wider text-[#8c491a] uppercase">
+          კონტაქტი
+        </div>
+        <p className="mt-3 text-[14px] font-medium leading-relaxed tabular-nums">
+          <a href="tel:+995422271414" className="hover:text-[#c67139] transition-colors">
+            +995 422 27 14 14
+          </a>
+          <br />
+          <a href="mailto:info@school14.ge" className="hover:text-[#c67139] transition-colors">
+            info@school14.ge
+          </a>
+        </p>
+      </div>
+
+      <div>
+        <div className="text-[12px] font-extrabold tracking-wider text-[#8c491a] uppercase">
+          საათები
+        </div>
+        <p className="mt-3 text-[14px] font-medium leading-relaxed tabular-nums">
+          ორშ–პარ 09:00–18:00<br />
+          შაბ 10:00–14:00
+        </p>
       </div>
     </footer>
   );

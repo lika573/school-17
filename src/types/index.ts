@@ -29,11 +29,24 @@ export interface GalleryItem {
   imageAlt: string;
 }
 
+export interface SiteValue {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface SocialLinks {
+  facebook: string;
+  instagram: string;
+  youtube: string;
+}
+
 export interface SiteConfig {
   name: string;
   shortName: string;
   tagline: string;
   mission: string;
+  history: string;
   stats: {
     students: number;
     teachers: number;
@@ -45,6 +58,9 @@ export interface SiteConfig {
     email: string;
     mapEmbed: string;
   };
+  workingHours: string;
+  socialLinks: SocialLinks;
+  values: SiteValue[];
   studentOfMonth: {
     name: string;
     grade: string;
@@ -56,5 +72,6 @@ export interface SiteConfig {
     year: string;
     deadlines: { label: string; date: string }[];
     documents: string[];
+    faq: { question: string; answer: string }[];
   };
 }

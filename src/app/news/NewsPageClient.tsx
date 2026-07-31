@@ -25,10 +25,9 @@ export default function NewsPageClient({ news }: Props) {
   return (
     <div className="container-padding py-10 sm:py-16 md:py-24">
       <ScrollReveal>
-        <SectionTitle>სიახლები</SectionTitle>
-        <p className="mt-3 max-w-2xl text-[14px] text-white/50 sm:mt-4 sm:text-[15px]">
-          სკოლის უახლესი განცხადებები, ღონისძიებები და მოსწავლეების მიღწევები.
-        </p>
+        <SectionTitle subtitle="სკოლის უახლესი განცხადებები, ღონისძიებები და მოსწავლეების მიღწევები.">
+          სიახლები
+        </SectionTitle>
       </ScrollReveal>
 
       <ScrollReveal delay={100}>
@@ -38,9 +37,11 @@ export default function NewsPageClient({ news }: Props) {
       </ScrollReveal>
 
       {filtered.length === 0 ? (
-        <p className="text-[14px] text-white/50 sm:text-[15px]">
-          ამ კატეგორიაში სიახლები არ მოიძებნა.
-        </p>
+        <div className="glass-card-static mt-8 p-8 text-center">
+          <p className="text-[14px] text-white/50 sm:text-[15px]">
+            ამ კატეგორიაში სიახლები არ მოიძებნა.
+          </p>
+        </div>
       ) : (
         <div className="stagger-children grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((item, i) => (

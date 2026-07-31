@@ -21,10 +21,9 @@ export default async function GalleryPage() {
   return (
     <div className="container-padding py-10 sm:py-16 md:py-24">
       <ScrollReveal>
-        <SectionTitle>გალერეა</SectionTitle>
-        <p className="mt-3 max-w-2xl text-[14px] text-white/50 sm:mt-4 sm:text-[15px]">
-          სკოლის ყოველდღიური ცხოვრება, ღონისძიებები და მოსწავლეების მიღწევები.
-        </p>
+        <SectionTitle subtitle="სკოლის ყოველდღიური ცხოვრება, ღონისძიებები და მოსწავლეების მიღწევები.">
+          გალერეა
+        </SectionTitle>
       </ScrollReveal>
 
       <ScrollReveal delay={150}>

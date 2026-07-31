@@ -18,7 +18,13 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
           loading="lazy"
           unoptimized={teacher.image.startsWith("/uploads/")}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        {/* Subject overlay on hover */}
+        <div className="absolute inset-x-0 bottom-0 translate-y-full p-3 transition-transform duration-500 group-hover:translate-y-0">
+          <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-md sm:text-[12px]">
+            {teacher.subject}
+          </span>
+        </div>
       </div>
       <h3 className="text-[13px] font-bold text-white sm:text-[15px]">
         {teacher.name}
@@ -27,7 +33,8 @@ export default function TeacherCard({ teacher }: TeacherCardProps) {
         {teacher.subject}
       </p>
       {teacher.role && (
-        <p className="text-[11px] text-white/40 sm:text-[13px]">
+        <p className="mt-0.5 inline-flex items-center gap-1 text-[11px] text-white/40 sm:text-[12px]">
+          <span className="inline-block h-1 w-1 rounded-full bg-white/30" />
           {teacher.role}
         </p>
       )}

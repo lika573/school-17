@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600;700;800&family=Noto+Sans+Georgian:wght@400;500;600;700;800;900&display=swap">
+<style>
+@keyframes og-rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes og-pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes og-word{0%{opacity:0;transform:translateY(40%) rotate(-2deg)}6%{opacity:1;transform:none}28%{opacity:1;transform:none}34%{opacity:0;transform:translateY(-40%) rotate(2deg)}100%{opacity:0;transform:translateY(-40%)}}
+@keyframes og-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes og-float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-22px) rotate(6deg)}}
+@keyframes og-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+</style>
+</helmet>
+<div ref="{{ root }}" style="width:1440px;background:#f5ead8;color:#201e1d;font-family:'Figtree','Noto Sans Georgian',system-ui,sans-serif;overflow:hidden;position:relative">
+
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:22px 48px;position:relative;z-index:6">
+    <div style="display:flex;align-items:center;gap:13px">
+      <div style="width:44px;height:44px;border-radius:999px;background:#c67139;display:flex;align-items:center;justify-content:center;color:#fff2eb;font-family:'Caprasimo',serif;font-size:18px">14</div>
+      <div style="display:flex;flex-direction:column;gap:1px">
+        <span style="font-size:15px;font-weight:800;line-height:1.2">ბათუმის №14 საჯარო სკოლა</span>
+        <span style="font-size:11px;font-weight:500;color:#645c50">1952 წლიდან · ბათუმი, აჭარა</span>
+      </div>
+    </div>
+    <nav style="display:flex;align-items:center;gap:6px;background:#ebddc5;border-radius:999px;padding:6px">
+      <a href="#" style="font-size:13px;font-weight:700;color:#402310;text-decoration:none;padding:9px 16px;border-radius:999px;background:#f5ead8">მთავარი</a>
+      <a href="#" style="font-size:13px;font-weight:600;color:#645c50;text-decoration:none;padding:9px 16px;border-radius:999px" style-hover="background:#ffe1d0;color:#8c491a">ჩვენს შესახებ</a>
+      <a href="#" style="font-size:13px;font-weight:600;color:#645c50;text-decoration:none;padding:9px 16px;border-radius:999px" style-hover="background:#ffe1d0;color:#8c491a">პროგრამები</a>
+      <a href="#" style="font-size:13px;font-weight:600;color:#645c50;text-decoration:none;padding:9px 16px;border-radius:999px" style-hover="background:#ffe1d0;color:#8c491a">მიღება</a>
+      <a href="#" style="font-size:13px;font-weight:600;color:#645c50;text-decoration:none;padding:9px 16px;border-radius:999px" style-hover="background:#ffe1d0;color:#8c491a">სიახლეები</a>
+      <a href="#" style="font-size:13px;font-weight:600;color:#645c50;text-decoration:none;padding:9px 16px;border-radius:999px" style-hover="background:#ffe1d0;color:#8c491a">კონტაქტი</a>
+    </nav>
+    <button style="border:none;border-radius:999px;background:#c67139;color:#fff2eb;font-family:inherit;font-size:14px;font-weight:700;padding:14px 26px;cursor:pointer;transition:background .25s,transform .25s" style-hover="background:#b2622d;transform:translateY(-2px)">მიღება 2026</button>
+  </header>
+
+  <section style="position:relative;padding:56px 48px 88px;overflow:hidden">
+    <div style="position:absolute;top:-120px;right:-80px;width:520px;height:520px;border-radius:999px;background:#e1eecc;animation:og-float 16s ease-in-out infinite;pointer-events:none"></div>
+    <div style="position:absolute;top:340px;right:420px;width:120px;height:120px;border-radius:999px;background:#ffe1d0;animation:og-float 11s 1s ease-in-out infinite;pointer-events:none"></div>
+    <div style="position:relative;display:grid;grid-template-columns:1fr 480px;gap:56px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <div style="display:flex;align-items:center;gap:9px;background:#ebddc5;border-radius:999px;padding:8px 18px 8px 12px;align-self:flex-start;animation:og-pop .8s both">
+          <span style="width:22px;height:22px;border-radius:999px;background:#7a8a5e"></span>
+          <span style="font-size:12px;font-weight:700;color:#3d472b">დაფუძნებულია 1952 წელს · 74 წელი ბათუმში</span>
+        </div>
+        <h1 style="margin:0;font-size:82px;font-weight:800;line-height:1.02;letter-spacing:-.03em">
+          <span style="display:block;animation:og-rise .9s .1s cubic-bezier(.2,.85,.25,1) both">ვასწავლით</span>
+          <span style="display:block;position:relative;height:86px;overflow:hidden;color:#c67139">
+            <span style="position:absolute;inset:0;animation:og-word 10.5s 0s infinite">აზროვნებას</span>
+            <span style="position:absolute;inset:0;opacity:0;animation:og-word 10.5s 3.5s infinite">პასუხისმგებლობას</span>
+            <span style="position:absolute;inset:0;opacity:0;animation:og-word 10.5s 7s infinite">შემოქმედებას</span>
+          </span>
+          <span style="display:block;animation:og-rise .9s .25s cubic-bezier(.2,.85,.25,1) both">ბათუმში</span>
+        </h1>
+        <p style="margin:0;max-width:520px;font-size:17px;font-weight:500;line-height:1.65;color:#645c50;text-wrap:pretty;animation:og-rise .9s .4s cubic-bezier(.2,.85,.25,1) both">ბათუმის №14 საჯარო სკოლა თორმეტწლიან აკადემიურ პროგრამას სთავაზობს 1 274 მოსწავლეს. ჩვენი მიზანია აღსაზრდელი, რომელიც დამოუკიდებლად აზროვნებს და საზოგადოებას პასუხისმგებლობით ეკიდება.</p>
+        <div style="display:flex;gap:13px;animation:og-rise .9s .55s cubic-bezier(.2,.85,.25,1) both">
+          <button style="border:none;border-radius:999px;background:#c67139;color:#fff2eb;font-family:inherit;font-size:16px;font-weight:700;padding:18px 34px;cursor:pointer;transition:background .25s,transform .25s" style-hover="background:#b2622d;transform:translateY(-3px)">მიღების პროცესი</button>
+          <button style="border:2px solid #201e1d;border-radius:999px;background:transparent;color:#201e1d;font-family:inherit;font-size:16px;font-weight:700;padding:16px 34px;cursor:pointer;transition:background .25s,transform .25s" style-hover="background:#ebddc5;transform:translateY(-3px)">სკოლის ტური</button>
+        </div>
+      </div>
+      <div style="position:relative;animation:og-pop 1.1s .2s both">
+        <div style="border-radius:28px;overflow:hidden;background:repeating-linear-gradient(135deg,#dcd3c4 0 14px,#eee7db 14px 28px);height:480px;filter:saturate(.6) contrast(.9) brightness(1.06);position:relative">
+          <span style="position:absolute;bottom:16px;left:16px;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#402310;background:#f9f4ed;padding:6px 10px;border-radius:999px">photo · schoolyard, washed</span>
+        </div>
+        <div style="position:absolute;bottom:-26px;left:-34px;background:#7a8a5e;color:#f0fae1;border-radius:28px;padding:20px 26px;animation:og-float 13s ease-in-out infinite">
+          <div style="font-size:34px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums"><span data-count="98">98</span>%</div>
+          <div style="font-size:12px;font-weight:600;margin-top:4px">უმაღლესში ჩარიცხვა</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="margin:0 48px;border-radius:999px;background:#201e1d;color:#f9f4ed;overflow:hidden;display:flex;align-items:stretch">
+    <div style="flex:none;background:#c67139;border-radius:999px;padding:13px 24px;font-size:12px;font-weight:800;letter-spacing:.06em;display:flex;align-items:center;color:#fff2eb">სიახლეები</div>
+    <div style="flex:1;overflow:hidden;display:flex;align-items:center">
+      <div style="display:flex;gap:52px;white-space:nowrap;animation:og-marquee 34s linear infinite;padding-left:28px">
+        <span style="font-size:14px;font-weight:600">2026–2027 სასწავლო წლის მიღება გახსნილია</span>
+        <span style="font-size:14px;font-weight:600;color:#ccdbb2">მათემატიკის ეროვნულ ოლიმპიადაზე — მეორე ადგილი</span>
+        <span style="font-size:14px;font-weight:600">გაიხსნა ბუნებისმეტყველების ახალი ლაბორატორია</span>
+        <span style="font-size:14px;font-weight:600;color:#ffc6a5">მშობელთა კრება — 12 სექტემბერი, 18:00</span>
+        <span style="font-size:14px;font-weight:600">2026–2027 სასწავლო წლის მიღება გახსნილია</span>
+        <span style="font-size:14px;font-weight:600;color:#ccdbb2">მათემატიკის ეროვნულ ოლიმპიადაზე — მეორე ადგილი</span>
+        <span style="font-size:14px;font-weight:600">გაიხსნა ბუნებისმეტყველების ახალი ლაბორატორია</span>
+        <span style="font-size:14px;font-weight:600;color:#ffc6a5">მშობელთა კრება — 12 სექტემბერი, 18:00</span>
+      </div>
+    </div>
+  </div>
+
+  <section style="padding:70px 48px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+    <div style="background:#ebddc5;border-radius:28px;padding:30px 28px">
+      <div data-count="1274" style="font-size:56px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums">1 274</div>
+      <div style="margin-top:8px;font-size:14px;font-weight:600;color:#645c50">მოსწავლე</div>
+    </div>
+    <div style="background:#ebddc5;border-radius:28px;padding:30px 28px">
+      <div data-count="96" style="font-size:56px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums">96</div>
+      <div style="margin-top:8px;font-size:14px;font-weight:600;color:#645c50">პედაგოგი</div>
+    </div>
+    <div style="background:#ebddc5;border-radius:28px;padding:30px 28px">
+      <div data-count="74" style="font-size:56px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums">74</div>
+      <div style="margin-top:8px;font-size:14px;font-weight:600;color:#645c50">წლიანი ისტორია</div>
+    </div>
+    <div style="background:#c67139;color:#fff2eb;border-radius:28px;padding:30px 28px">
+      <div data-count="24" style="font-size:56px;font-weight:800;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums">24</div>
+      <div style="margin-top:8px;font-size:14px;font-weight:600">საკლასო ოთახი</div>
+    </div>
+  </section>
+
+  <section style="padding:0 48px 88px;display:grid;grid-template-columns:1fr 460px;gap:62px;align-items:center">
+    <div>
+      <span style="display:inline-block;font-size:12px;font-weight:800;letter-spacing:.1em;color:#8c491a;background:#ffe1d0;border-radius:999px;padding:7px 16px">ჩვენს შესახებ</span>
+      <h2 style="margin:22px 0 0;font-size:52px;font-weight:800;line-height:1.06;letter-spacing:-.03em;max-width:620px">სკოლა ბათუმის ისტორიაში</h2>
+      <p style="margin:22px 0 0;max-width:620px;font-size:16px;font-weight:500;line-height:1.7;color:#201e1d;text-wrap:pretty">1952 წელს გახსნილი №14 სკოლა შვიდ ათწლეულზე მეტია ბათუმის საგანმანათლებლო ცხოვრების ნაწილია. ჭავჭავაძის ქუჩაზე მდებარე კორპუსი დღემდე ინარჩუნებს პირვანდელ არქიტექტურას, სასწავლო პროცესი კი თანამედროვე აკადემიურ სტანდარტებს ეყრდნობა.</p>
+      <p style="margin:14px 0 0;max-width:620px;font-size:16px;font-weight:500;line-height:1.7;color:#645c50;text-wrap:pretty">სკოლა მუშაობს ეროვნული სასწავლო გეგმით, თუმცა თითოეულ საფეხურზე ვამატებთ საკუთარ პროგრამებს — კვლევით სემინარებს, ლაბორატორიულ პრაქტიკას და აკადემიური წერის სავალდებულო კურსს.</p>
+      <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px">
+        <span style="font-size:13px;font-weight:700;background:#e1eecc;color:#3d472b;border-radius:999px;padding:10px 18px">ავტორიზებული საჯარო სკოლა</span>
+        <span style="font-size:13px;font-weight:700;background:#e1eecc;color:#3d472b;border-radius:999px;padding:10px 18px">2 ლაბორატორია</span>
+        <span style="font-size:13px;font-weight:700;background:#e1eecc;color:#3d472b;border-radius:999px;padding:10px 18px">ბიბლიოთეკა · 12 000 წიგნი</span>
+      </div>
+    </div>
+    <div style="position:relative">
+      <div style="border-radius:999px;overflow:hidden;height:460px;background:repeating-linear-gradient(90deg,#dcd3c4 0 12px,#eee7db 12px 24px);filter:saturate(.6) contrast(.9) brightness(1.06);position:relative">
+        <span style="position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#402310;background:#f9f4ed;padding:6px 10px;border-radius:999px;white-space:nowrap">photo · reading room</span>
+      </div>
+      <div style="position:absolute;top:-18px;right:-18px;width:96px;height:96px;border-radius:999px;background:#c67139;animation:og-float 12s ease-in-out infinite"></div>
+    </div>
+  </section>
+
+  <section style="padding:0 48px 88px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px">
+      <div>
+        <span style="display:inline-block;font-size:12px;font-weight:800;letter-spacing:.1em;color:#8c491a;background:#ffe1d0;border-radius:999px;padding:7px 16px">პროგრამები</span>
+        <h2 style="margin:22px 0 0;font-size:52px;font-weight:800;line-height:1;letter-spacing:-.03em">სამი საფეხური</h2>
+      </div>
+      <a href="#" style="font-size:14px;font-weight:700;color:#8c491a;text-decoration:none;background:#ffe1d0;border-radius:999px;padding:13px 22px" style-hover="background:#ffc6a5">სასწავლო გეგმა →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <article style="background:#ebddc5;border-radius:28px;padding:32px 30px 36px;transition:transform .3s,background .3s" style-hover="transform:translateY(-8px);background:#eee7db">
+        <div style="width:48px;height:48px;border-radius:999px;background:#c67139;color:#fff2eb;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums">01</div>
+        <div style="margin-top:20px;font-size:12px;font-weight:800;letter-spacing:.08em;color:#8c491a">I — VI კლასი</div>
+        <h3 style="margin:10px 0 0;font-size:29px;font-weight:800;line-height:1.12;letter-spacing:-.02em">დაწყებითი საფეხური</h3>
+        <p style="margin:13px 0 0;font-size:15px;font-weight:500;line-height:1.65;color:#645c50">ბაზისური უნარები — კითხვა, წერა, მათემატიკური აზროვნება და პირველი უცხო ენა. დღის მეორე ნახევარში შემოქმედებითი სახელოსნოები.</p>
+        <div style="margin-top:22px;font-size:13px;font-weight:700;color:#56633f;background:#e1eecc;border-radius:999px;padding:9px 16px;display:inline-block">6 პარალელი · 22 მოსწავლე</div>
+      </article>
+      <article style="background:#ebddc5;border-radius:28px;padding:32px 30px 36px;transition:transform .3s,background .3s" style-hover="transform:translateY(-8px);background:#eee7db">
+        <div style="width:48px;height:48px;border-radius:999px;background:#7a8a5e;color:#f0fae1;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums">02</div>
+        <div style="margin-top:20px;font-size:12px;font-weight:800;letter-spacing:.08em;color:#56633f">VII — IX კლასი</div>
+        <h3 style="margin:10px 0 0;font-size:29px;font-weight:800;line-height:1.12;letter-spacing:-.02em">საბაზო საფეხური</h3>
+        <p style="margin:13px 0 0;font-size:15px;font-weight:500;line-height:1.65;color:#645c50">საგნობრივი გაღრმავება, ლაბორატორიული სამუშაოები და პირველი კვლევითი პროექტი მასწავლებლის ხელმძღვანელობით.</p>
+        <div style="margin-top:22px;font-size:13px;font-weight:700;color:#56633f;background:#e1eecc;border-radius:999px;padding:9px 16px;display:inline-block">3 პარალელი · 4 არჩევითი</div>
+      </article>
+      <article style="background:#ebddc5;border-radius:28px;padding:32px 30px 36px;transition:transform .3s,background .3s" style-hover="transform:translateY(-8px);background:#eee7db">
+        <div style="width:48px;height:48px;border-radius:999px;background:#c67139;color:#fff2eb;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;font-variant-numeric:tabular-nums">03</div>
+        <div style="margin-top:20px;font-size:12px;font-weight:800;letter-spacing:.08em;color:#8c491a">X — XII კლასი</div>
+        <h3 style="margin:10px 0 0;font-size:29px;font-weight:800;line-height:1.12;letter-spacing:-.02em">საშუალო საფეხური</h3>
+        <p style="margin:13px 0 0;font-size:15px;font-weight:500;line-height:1.65;color:#645c50">აკადემიური მიმართულების არჩევა, ეროვნული გამოცდებისთვის სისტემური მზადება და აკადემიური წერის სავალდებულო კურსი.</p>
+        <div style="margin-top:22px;font-size:13px;font-weight:700;color:#56633f;background:#e1eecc;border-radius:999px;padding:9px 16px;display:inline-block">3 მიმართულება · 98%</div>
+      </article>
+    </div>
+  </section>
+
+  <section style="margin:0 48px 88px;background:#ebddc5;border-radius:28px;padding:56px 48px;display:grid;grid-template-columns:320px 1fr;gap:48px;position:relative;overflow:hidden">
+    <div style="position:absolute;bottom:-140px;right:-60px;width:340px;height:340px;border-radius:999px;background:#e1eecc;animation:og-float 15s ease-in-out infinite;pointer-events:none"></div>
+    <div style="position:relative">
+      <span style="display:inline-block;font-size:12px;font-weight:800;letter-spacing:.1em;color:#8c491a;background:#ffe1d0;border-radius:999px;padding:7px 16px">მიღება</span>
+      <h2 style="margin:22px 0 0;font-size:44px;font-weight:800;line-height:1.04;letter-spacing:-.03em">ოთხი ნაბიჯი</h2>
+      <p style="margin:16px 0 0;font-size:15px;font-weight:500;line-height:1.65;color:#645c50">განაცხადების მიღება მიმდინარეობს 1 თებერვლიდან 30 ივნისამდე.</p>
+      <button style="margin-top:24px;border:none;border-radius:999px;background:#c67139;color:#fff2eb;font-family:inherit;font-size:15px;font-weight:700;padding:16px 30px;cursor:pointer;transition:background .25s,transform .25s" style-hover="background:#b2622d;transform:translateY(-3px)">ფორმის შევსება</button>
+    </div>
+    <div style="position:relative;display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+      <div style="background:#f5ead8;border-radius:28px;padding:24px 26px;display:flex;gap:16px;align-items:flex-start">
+        <span style="flex:none;width:36px;height:36px;border-radius:999px;background:#ffe1d0;color:#8c491a;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">01</span>
+        <div>
+          <h4 style="margin:0;font-size:19px;font-weight:800">განაცხადი</h4>
+          <p style="margin:6px 0 0;font-size:14px;font-weight:500;line-height:1.6;color:#645c50">ონლაინ ფორმის შევსება სკოლის საიტზე.</p>
+        </div>
+      </div>
+      <div style="background:#f5ead8;border-radius:28px;padding:24px 26px;display:flex;gap:16px;align-items:flex-start">
+        <span style="flex:none;width:36px;height:36px;border-radius:999px;background:#ffe1d0;color:#8c491a;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">02</span>
+        <div>
+          <h4 style="margin:0;font-size:19px;font-weight:800">დოკუმენტაცია</h4>
+          <p style="margin:6px 0 0;font-size:14px;font-weight:500;line-height:1.6;color:#645c50">დაბადების მოწმობა, ცნობა, ფოტოსურათი.</p>
+        </div>
+      </div>
+      <div style="background:#f5ead8;border-radius:28px;padding:24px 26px;display:flex;gap:16px;align-items:flex-start">
+        <span style="flex:none;width:36px;height:36px;border-radius:999px;background:#ffe1d0;color:#8c491a;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">03</span>
+        <div>
+          <h4 style="margin:0;font-size:19px;font-weight:800">გასაუბრება</h4>
+          <p style="margin:6px 0 0;font-size:14px;font-weight:500;line-height:1.6;color:#645c50">შეხვედრა მშობელთან და მოსწავლესთან.</p>
+        </div>
+      </div>
+      <div style="background:#7a8a5e;color:#f0fae1;border-radius:28px;padding:24px 26px;display:flex;gap:16px;align-items:flex-start">
+        <span style="flex:none;width:36px;height:36px;border-radius:999px;background:#f0fae1;color:#3d472b;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">04</span>
+        <div>
+          <h4 style="margin:0;font-size:19px;font-weight:800">ჩარიცხვა</h4>
+          <p style="margin:6px 0 0;font-size:14px;font-weight:500;line-height:1.6;color:#e1eecc">ხელშეკრულება და კლასის განაწილება.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:0 48px 88px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px">
+      <h2 style="margin:0;font-size:52px;font-weight:800;line-height:1;letter-spacing:-.03em">სიახლეები</h2>
+      <a href="#" style="font-size:14px;font-weight:700;color:#8c491a;text-decoration:none;background:#ffe1d0;border-radius:999px;padding:13px 22px" style-hover="background:#ffc6a5">ყველა სიახლე →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+      <article style="background:#ebddc5;border-radius:28px;overflow:hidden;cursor:pointer;transition:transform .3s" style-hover="transform:translateY(-8px)">
+        <div style="height:200px;margin:14px;border-radius:20px;background:repeating-linear-gradient(45deg,#dcd3c4 0 12px,#eee7db 12px 24px);filter:saturate(.6) contrast(.9) brightness(1.06);position:relative">
+          <span style="position:absolute;bottom:12px;left:12px;font-family:ui-monospace,Menlo,monospace;font-size:11px;background:#f9f4ed;padding:5px 9px;border-radius:999px;color:#402310">photo · olympiad</span>
+        </div>
+        <div style="padding:6px 30px 32px">
+          <div style="font-size:12px;font-weight:700;color:#8c491a;font-variant-numeric:tabular-nums">14 ივლისი 2026</div>
+          <h3 style="margin:10px 0 0;font-size:22px;font-weight:800;line-height:1.2;letter-spacing:-.02em">მათემატიკის ეროვნულ ოლიმპიადაზე — მეორე ადგილი</h3>
+          <p style="margin:10px 0 0;font-size:14px;font-weight:500;line-height:1.6;color:#645c50">XI კლასის მოსწავლემ ქვეყნის მასშტაბით მეორე შედეგი დააფიქსირა.</p>
+        </div>
+      </article>
+      <article style="background:#ebddc5;border-radius:28px;overflow:hidden;cursor:pointer;transition:transform .3s" style-hover="transform:translateY(-8px)">
+        <div style="height:200px;margin:14px;border-radius:20px;background:repeating-linear-gradient(45deg,#dcd3c4 0 12px,#eee7db 12px 24px);filter:saturate(.6) contrast(.9) brightness(1.06);position:relative">
+          <span style="position:absolute;bottom:12px;left:12px;font-family:ui-monospace,Menlo,monospace;font-size:11px;background:#f9f4ed;padding:5px 9px;border-radius:999px;color:#402310">photo · laboratory</span>
+        </div>
+        <div style="padding:6px 30px 32px">
+          <div style="font-size:12px;font-weight:700;color:#8c491a;font-variant-numeric:tabular-nums">02 ივლისი 2026</div>
+          <h3 style="margin:10px 0 0;font-size:22px;font-weight:800;line-height:1.2;letter-spacing:-.02em">გაიხსნა ბუნებისმეტყველების ახალი ლაბორატორია</h3>
+          <p style="margin:10px 0 0;font-size:14px;font-weight:500;line-height:1.6;color:#645c50">ფიზიკის, ქიმიისა და ბიოლოგიის პრაქტიკული სამუშაოები ერთ სივრცეში.</p>
+        </div>
+      </article>
+      <article style="background:#ebddc5;border-radius:28px;overflow:hidden;cursor:pointer;transition:transform .3s" style-hover="transform:translateY(-8px)">
+        <div style="height:200px;margin:14px;border-radius:20px;background:repeating-linear-gradient(45deg,#dcd3c4 0 12px,#eee7db 12px 24px);filter:saturate(.6) contrast(.9) brightness(1.06);position:relative">
+          <span style="position:absolute;bottom:12px;left:12px;font-family:ui-monospace,Menlo,monospace;font-size:11px;background:#f9f4ed;padding:5px 9px;border-radius:999px;color:#402310">photo · graduation</span>
+        </div>
+        <div style="padding:6px 30px 32px">
+          <div style="font-size:12px;font-weight:700;color:#8c491a;font-variant-numeric:tabular-nums">20 ივნისი 2026</div>
+          <h3 style="margin:10px 0 0;font-size:22px;font-weight:800;line-height:1.2;letter-spacing:-.02em">XII კლასის გამოსაშვები ცერემონია</h3>
+          <p style="margin:10px 0 0;font-size:14px;font-weight:500;line-height:1.6;color:#645c50">87 აბიტურიენტმა ატესტატი მიიღო; 85 უმაღლესში ჩაირიცხა.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section style="margin:0 48px 70px;background:#c67139;color:#fff2eb;border-radius:28px;padding:64px 48px;display:flex;align-items:center;justify-content:space-between;gap:48px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:-90px;right:180px;width:280px;height:280px;border-radius:999px;background:rgba(255,242,235,.14);animation:og-float 14s ease-in-out infinite;pointer-events:none"></div>
+    <h2 style="margin:0;position:relative;font-size:56px;font-weight:800;line-height:1.04;letter-spacing:-.03em;max-width:760px">მიღება 2026–2027 გახსნილია</h2>
+    <button style="position:relative;flex:none;border:none;border-radius:999px;background:#fff2eb;color:#8c491a;font-family:inherit;font-size:16px;font-weight:800;padding:19px 36px;cursor:pointer;transition:transform .25s" style-hover="transform:translateY(-3px)">განაცხადის შევსება</button>
+  </section>
+
+  <footer style="padding:0 48px 56px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;border-radius:999px;background:#c67139;color:#fff2eb;display:flex;align-items:center;justify-content:center;font-family:'Caprasimo',serif;font-size:15px">14</div>
+        <span style="font-size:14px;font-weight:800">ბათუმის №14 საჯარო სკოლა</span>
+      </div>
+      <p style="margin:16px 0 0;font-size:13px;font-weight:500;line-height:1.7;color:#645c50;max-width:290px">დაფუძნებულია 1952 წელს. ავტორიზებული საჯარო სკოლა, აჭარის ავტონომიური რესპუბლიკა.</p>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:#8c491a">მისამართი</div>
+      <p style="margin:12px 0 0;font-size:14px;font-weight:500;line-height:1.7">ბათუმი 6000<br>ილია ჭავჭავაძის ქ. 14</p>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:#8c491a">კონტაქტი</div>
+      <p style="margin:12px 0 0;font-size:14px;font-weight:500;line-height:1.7;font-variant-numeric:tabular-nums">+995 422 27 14 14<br>info@school14.ge</p>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:800;letter-spacing:.08em;color:#8c491a">საათები</div>
+      <p style="margin:12px 0 0;font-size:14px;font-weight:500;line-height:1.7;font-variant-numeric:tabular-nums">ორშ–პარ 09:00–18:00<br>შაბ 10:00–14:00</p>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  root = React.createRef();
+  componentDidMount() {
+    const host = this.root.current;
+    if (!host) return;
+    const fmt = n => n >= 1000 ? n.toLocaleString('en-US').replace(/,/g, ' ') : String(n);
+    host.querySelectorAll('[data-count]').forEach((el, i) => {
+      const target = parseInt(el.getAttribute('data-count'), 10);
+      if (!target) return;
+      const dur = 1500, start = performance.now() + i * 150;
+      el.textContent = fmt(0);
+      const step = now => {
+        const t = Math.min(1, Math.max(0, (now - start) / dur));
+        el.textContent = fmt(Math.round(target * (1 - Math.pow(1 - t, 3))));
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+  renderVals() { return { root: this.root }; }
+}
+</script>
+</body>
+</html>

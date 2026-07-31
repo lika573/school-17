@@ -16,10 +16,9 @@ export default function ContactPage() {
   return (
     <div className="container-padding py-10 sm:py-16 md:py-24">
       <ScrollReveal>
-        <SectionTitle>კონტაქტი</SectionTitle>
-        <p className="mt-3 max-w-2xl text-[14px] text-white/50 sm:mt-4 sm:text-[15px]">
-          გვესტუმრეთ, დაგვიკავშირდით ტელეფონით ან ელფოსტით.
-        </p>
+        <SectionTitle subtitle="გვესტუმრეთ, დაგვიკავშირდით ტელეფონით ან ელფოსტით.">
+          კონტაქტი
+        </SectionTitle>
       </ScrollReveal>
 
       <div className="mt-8 grid gap-8 sm:mt-12 sm:gap-12 lg:grid-cols-2 lg:gap-16">
@@ -28,44 +27,72 @@ export default function ContactPage() {
             <h2 className="mb-4 text-[18px] font-extrabold text-white sm:mb-6 sm:text-[20px]">
               საკონტაქტო ინფორმაცია
             </h2>
-            <address className="space-y-3 text-[14px] not-italic sm:space-y-4 sm:text-[15px]">
-              <div className="glass-card-static p-4 sm:p-5">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[13px]">
-                  მისამართი
-                </p>
-                <p className="mt-1 font-semibold text-white">
-                  {site.contact.address}
-                </p>
+            <div className="space-y-3 sm:space-y-4">
+              {/* Address */}
+              <div className="glass-card-static flex items-start gap-4 p-4 sm:p-5">
+                <div className="contact-icon" aria-hidden="true">📍</div>
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[12px]">
+                    მისამართი
+                  </p>
+                  <p className="mt-1 text-[14px] font-semibold text-white sm:text-[15px]">
+                    {site.contact.address}
+                  </p>
+                </div>
               </div>
-              <div className="glass-card-static p-4 sm:p-5">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[13px]">
-                  ტელეფონი
-                </p>
-                <p className="mt-1">
-                  <a
-                    href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
-                    className="link-accent font-semibold"
-                  >
-                    {site.contact.phone}
-                  </a>
-                </p>
-              </div>
-              <div className="glass-card-static p-4 sm:p-5">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[13px]">
-                  ელფოსტა
-                </p>
-                <p className="mt-1">
-                  <a
-                    href={`mailto:${site.contact.email}`}
-                    className="link-accent font-semibold"
-                  >
-                    {site.contact.email}
-                  </a>
-                </p>
-              </div>
-            </address>
 
-            <div className="mt-6 aspect-[16/10] w-full overflow-hidden rounded-2xl sm:mt-8 sm:aspect-[4/3]">
+              {/* Phone */}
+              <div className="glass-card-static flex items-start gap-4 p-4 sm:p-5">
+                <div className="contact-icon" aria-hidden="true">📞</div>
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[12px]">
+                    ტელეფონი
+                  </p>
+                  <p className="mt-1">
+                    <a
+                      href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
+                      className="link-accent text-[14px] font-semibold sm:text-[15px]"
+                    >
+                      {site.contact.phone}
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="glass-card-static flex items-start gap-4 p-4 sm:p-5">
+                <div className="contact-icon" aria-hidden="true">✉️</div>
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[12px]">
+                    ელფოსტა
+                  </p>
+                  <p className="mt-1">
+                    <a
+                      href={`mailto:${site.contact.email}`}
+                      className="link-accent text-[14px] font-semibold sm:text-[15px]"
+                    >
+                      {site.contact.email}
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              {/* Working Hours */}
+              <div className="glass-card-static flex items-start gap-4 p-4 sm:p-5">
+                <div className="contact-icon" aria-hidden="true">🕐</div>
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-white/35 sm:text-[12px]">
+                    სამუშაო საათები
+                  </p>
+                  <p className="mt-1 text-[14px] font-semibold text-white sm:text-[15px]">
+                    {site.workingHours}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Map */}
+            <div className="relative mt-6 aspect-[16/10] w-full overflow-hidden rounded-2xl sm:mt-8 sm:aspect-[4/3]">
               <iframe
                 src={site.contact.mapEmbed}
                 title="ბათუმის N17 საჯარო სკოლის მდებარეობა რუკაზე"
@@ -74,6 +101,18 @@ export default function ContactPage() {
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
               />
+              {/* Glass overlay label */}
+              <div
+                className="absolute bottom-4 left-4 rounded-xl px-4 py-2 text-[13px] font-semibold text-white"
+                style={{
+                  background: "rgba(10, 14, 26, 0.7)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                }}
+              >
+                📍 {site.contact.address}
+              </div>
             </div>
           </div>
         </ScrollReveal>
