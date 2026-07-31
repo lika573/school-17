@@ -65,7 +65,7 @@ export default function HomePage() {
           <div className="relative animate-[og-pop_1.1s_0.2s_both]">
             <div className="rounded-[28px] overflow-hidden bg-[repeating-linear-gradient(135deg,#dcd3c4_0_14px,#eee7db_14px_28px)] h-[380px] sm:h-[480px] filter saturate-[.6] contrast-[.9] brightness-[1.06] relative shadow-md">
               <Image
-                src="https://images.unsplash.com/photo-1580582932707-658abb7726b0?w=1200&h=800&fit=crop"
+                src="https://edu.aris.ge/news/wp-content/uploads/2019/02/1.jpg"
                 alt="ბათუმის №14 საჯარო სკოლა"
                 fill
                 className="object-cover opacity-80"
@@ -156,7 +156,7 @@ export default function HomePage() {
         <div className="relative">
           <div className="rounded-[999px] overflow-hidden h-[380px] sm:h-[460px] bg-[repeating-linear-gradient(90deg,#dcd3c4_0_12px,#eee7db_12px_24px)] filter saturate-[.6] contrast-[.9] brightness-[1.06] relative shadow-md">
             <Image
-              src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=800&h=1000&fit=crop"
+              src="https://edu.aris.ge/news/wp-content/uploads/2019/02/1.jpg"
               alt="ბათუმის №14 საჯარო სკოლის სამკითხველო"
               fill
               className="object-cover opacity-80"
@@ -356,7 +356,7 @@ export default function HomePage() {
           >
             <div className="h-[200px] m-3.5 rounded-[20px] bg-[repeating-linear-gradient(45deg,#dcd3c4_0_12px,#eee7db_12px_24px)] filter saturate-[.6] contrast-[.9] brightness-[1.06] relative overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?w=600&h=400&fit=crop"
+                src="https://edu.aris.ge/news/wp-content/uploads/2019/02/1.jpg"
                 alt="მათემატიკის ეროვნული ოლიმპიადა"
                 fill
                 className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
@@ -385,7 +385,7 @@ export default function HomePage() {
           >
             <div className="h-[200px] m-3.5 rounded-[20px] bg-[repeating-linear-gradient(45deg,#dcd3c4_0_12px,#eee7db_12px_24px)] filter saturate-[.6] contrast-[.9] brightness-[1.06] relative overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600&h=400&fit=crop"
+                src="https://edu.aris.ge/news/wp-content/uploads/2019/02/1.jpg"
                 alt="ახალი ლაბორატორია"
                 fill
                 className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
@@ -414,7 +414,7 @@ export default function HomePage() {
           >
             <div className="h-[200px] m-3.5 rounded-[20px] bg-[repeating-linear-gradient(45deg,#dcd3c4_0_12px,#eee7db_12px_24px)] filter saturate-[.6] contrast-[.9] brightness-[1.06] relative overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop"
+                src="https://edu.aris.ge/news/wp-content/uploads/2019/02/1.jpg"
                 alt="გამოსაშვები ცერემონია"
                 fill
                 className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"

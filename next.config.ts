@@ -27,6 +27,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.gstatic.com",
       },
+      {
+        protocol: "https",
+        hostname: "edu.aris.ge",
+      },
     ],
   },
 };
