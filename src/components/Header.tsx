@@ -16,6 +16,12 @@ const navLinks = [
   { href: "/contact", label: "კონტაქტი" },
 ];
 
+function isLinkActive(pathname: string, href: string) {
+  if (href.includes("#")) return false;
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export default function Header() {
   const pathname = usePathname();
   const menuId = useId();
@@ -62,7 +68,6 @@ export default function Header() {
     if (href.includes("#")) {
       const id = href.split("#")[1];
       if (!id) return;
-      // Allow route change to settle, then scroll to section
       window.setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       }, 50);
@@ -77,58 +82,65 @@ export default function Header() {
         aria-hidden="true"
       />
 
-      <header className="sticky top-0 z-[60] bg-[#f5ead8]/90 backdrop-blur-md">
-        <div className="relative z-[70] mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 sm:px-8 md:px-12">
-          <Link href="/" className="group flex items-center gap-3" onClick={closeMenu}>
-            <div className="flex h-[44px] w-[44px] items-center justify-center rounded-full bg-[#c67139] font-serif text-[18px] text-[#fff2eb] shadow-sm transition-transform duration-300 group-hover:scale-105">
+      <header className="sticky top-0 z-[60] border-b border-[#201e1d]/08 bg-[#f5ead8]/95 backdrop-blur-md">
+        <div className="relative z-[70] mx-auto flex h-[72px] max-w-[1440px] items-center gap-6 px-5 sm:px-8 md:h-20 md:px-12">
+          <Link
+            href="/"
+            className="group flex min-w-0 shrink-0 items-center gap-3"
+            onClick={closeMenu}
+          >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#c67139] font-serif text-[17px] text-[#fff2eb] transition-transform duration-300 group-hover:scale-105 md:h-11 md:w-11 md:text-[18px]">
               14
             </div>
-            <div className="flex flex-col gap-0.5">
-              <span className="text-[15px] font-extrabold leading-tight text-[#201e1d]">
+            <div className="hidden min-w-0 flex-col gap-0.5 sm:flex">
+              <span className="truncate text-[14px] font-extrabold leading-tight text-[#201e1d] md:text-[15px]">
                 {site.name}
               </span>
               <span className="text-[11px] font-medium text-[#645c50]">
-                1952 წლიდან · ბათუმი, აჭარა
+                1952 წლიდან · ბათუმი
               </span>
             </div>
           </Link>
 
           <nav
-            className="hidden items-center gap-1 rounded-full bg-[#ebddc5] p-1.5 lg:flex"
+            className="ml-auto hidden items-center gap-0.5 xl:gap-1 lg:flex"
             aria-label="მთავარი ნავიგაცია"
           >
             {navLinks.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname === link.href || pathname.startsWith(`${link.href}/`);
+              const active = isLinkActive(pathname, link.href);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-full px-4 py-2 text-[13px] transition-all duration-200 ${
-                    isActive && !link.href.includes("#")
-                      ? "bg-[#f5ead8] font-bold text-[#402310] shadow-xs"
-                      : "font-semibold text-[#645c50] hover:bg-[#ffe1d0] hover:text-[#8c491a]"
+                  className={`relative whitespace-nowrap px-2.5 py-2 text-[13px] transition-colors duration-200 xl:px-3 ${
+                    active
+                      ? "font-extrabold text-[#c67139]"
+                      : "font-semibold text-[#645c50] hover:text-[#201e1d]"
                   }`}
                 >
                   {link.label}
+                  <span
+                    className={`absolute inset-x-2.5 -bottom-0.5 h-[2px] origin-left rounded-full bg-[#c67139] transition-transform duration-200 xl:inset-x-3 ${
+                      active ? "scale-x-100" : "scale-x-0"
+                    }`}
+                    aria-hidden="true"
+                  />
                 </Link>
               );
             })}
           </nav>
 
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="ml-auto flex items-center gap-3 lg:ml-0">
             <Link
               href="/admission"
-              className="hidden rounded-full bg-[#c67139] px-6.5 py-3.5 text-[14px] font-bold text-[#fff2eb] shadow-sm transition-all hover:-translate-y-0.5 hover:bg-[#b2622d] lg:inline-flex"
+              className="hidden items-center rounded-full bg-[#c67139] px-5 py-2.5 text-[13px] font-bold text-[#fff2eb] transition-colors hover:bg-[#b2622d] lg:inline-flex"
             >
               მიღება 2026
             </Link>
 
             <button
               type="button"
-              className="relative z-[80] flex h-11 w-11 flex-col items-center justify-center rounded-full bg-[#ebddc5] transition-all hover:bg-[#ffe1d0] lg:hidden"
+              className="relative z-[80] flex h-11 w-11 flex-col items-center justify-center rounded-full border border-[#201e1d]/10 bg-transparent transition-colors hover:bg-[#ebddc5] lg:hidden"
               onClick={() => setMenuOpen((open) => !open)}
               aria-expanded={menuOpen}
               aria-controls={menuId}
@@ -157,7 +169,6 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Portal-like sibling: outside backdrop-blur so fixed covers the viewport */}
       <div
         className={`fixed inset-0 z-[55] bg-[#201e1d]/25 transition-opacity duration-300 lg:hidden ${
           menuOpen
@@ -170,7 +181,7 @@ export default function Header() {
 
       <nav
         id={menuId}
-        className={`fixed inset-x-0 top-20 bottom-0 z-[58] overflow-y-auto overscroll-contain bg-[#f5ead8] px-5 pb-10 pt-4 transition-transform duration-300 ease-out lg:hidden ${
+        className={`fixed inset-x-0 top-[72px] bottom-0 z-[58] overflow-y-auto overscroll-contain border-t border-[#201e1d]/08 bg-[#f5ead8] px-5 pb-10 pt-6 transition-all duration-300 ease-out md:top-20 lg:hidden ${
           menuOpen
             ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none -translate-y-2 opacity-0"
@@ -179,23 +190,18 @@ export default function Header() {
         aria-hidden={!menuOpen}
         inert={!menuOpen ? true : undefined}
       >
-        <div className="mx-auto flex max-w-lg flex-col gap-1">
+        <div className="mx-auto flex max-w-lg flex-col">
           {navLinks.map((link) => {
-            const isActive =
-              link.href === "/"
-                ? pathname === "/"
-                : !link.href.includes("#") &&
-                  (pathname === link.href ||
-                    pathname.startsWith(`${link.href}/`));
+            const active = isLinkActive(pathname, link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className={`rounded-2xl px-4 py-3.5 text-[17px] font-bold transition-colors ${
-                  isActive
-                    ? "bg-[#ebddc5] text-[#c67139]"
-                    : "text-[#201e1d] hover:bg-[#ebddc5]"
+                className={`border-b border-[#201e1d]/08 py-4 text-[17px] font-bold transition-colors ${
+                  active
+                    ? "text-[#c67139]"
+                    : "text-[#201e1d] hover:text-[#c67139]"
                 }`}
               >
                 {link.label}
@@ -205,7 +211,7 @@ export default function Header() {
           <Link
             href="/admission"
             onClick={closeMenu}
-            className="mt-4 rounded-full bg-[#c67139] py-3.5 text-center text-[15px] font-bold text-[#fff2eb] transition-all hover:bg-[#b2622d]"
+            className="mt-8 rounded-full bg-[#c67139] py-3.5 text-center text-[15px] font-bold text-[#fff2eb] transition-colors hover:bg-[#b2622d]"
           >
             მიღება 2026
           </Link>
